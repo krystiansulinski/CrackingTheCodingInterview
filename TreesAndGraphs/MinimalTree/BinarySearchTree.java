@@ -2,11 +2,13 @@ package MinimalTree;
 
 import java.util.List;
 
+import MinimalTree.Node;
+
 public class BinarySearchTree {
 	public Node root;
 
-	public Node createMinimalBST(int[] values) {
-		return createMinimalBST(values, 0, values.length - 1, 0);
+	public BinarySearchTree(int[] values) {
+		this.root = createMinimalBST(values, 0, values.length - 1, 0);
 	}
 
 	public void inOrderTraversal(Node node, List<Integer> visited) {
@@ -35,7 +37,7 @@ public class BinarySearchTree {
 
 		int mid = (start + end) / 2;
 		Node node = new Node(values[mid]);
-		
+
 		node.left = createMinimalBST(values, start, mid - 1, level + 1);
 		node.right = createMinimalBST(values, mid + 1, end, level + 1);
 

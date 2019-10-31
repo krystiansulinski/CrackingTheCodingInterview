@@ -12,11 +12,10 @@ public class BinarySearchTreeTest {
 	public void createBinarySearchTree() {
 		int[] values = { 0, 1, 2, 3, 4, 5, 6 };// getIncreasingNumbers();
 
-		BinarySearchTree tree = new BinarySearchTree();
-		Node root = tree.createMinimalBST(values);
+		BinarySearchTree tree = new BinarySearchTree(values);
 
 		List<Integer> list = new ArrayList<>();
-		tree.inOrderTraversal(root, list);
+		tree.inOrderTraversal(tree.root, list);
 		System.out.println(list);
 
 		for (int i = 0; i < values.length; i++) {
