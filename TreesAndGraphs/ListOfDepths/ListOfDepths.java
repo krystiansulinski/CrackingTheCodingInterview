@@ -6,9 +6,9 @@ import java.util.List;
 import MinimalTree.Node;
 
 public class ListOfDepths {
-	List<LinkedList<Node>> depths;
+	public List<List<Node>> depths;
 
-	ListOfDepths(Node node) {
+	public ListOfDepths(Node node) {
 		depths = new LinkedList<>();
 		cretesDepths(node, 0);
 	}

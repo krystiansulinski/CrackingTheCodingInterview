@@ -2,13 +2,12 @@ package MinimalTree;
 
 import java.util.List;
 
-import MinimalTree.Node;
-
 public class BinarySearchTree {
 	public Node root;
+	private String horizontalTree;
 
 	public BinarySearchTree(int[] values) {
-		this.root = createMinimalBST(values, 0, values.length - 1, 0);
+		this.root = createMinimalBST(values, 0, values.length - 1);
 	}
 
 	public void inOrderTraversal(Node node, List<Integer> visited) {
@@ -19,28 +18,40 @@ public class BinarySearchTree {
 		}
 	}
 
-	public String indent(int n) {
-		String s = "";
-		for (int i = 0; i < n; i++) {
-			s += "\t";
-		}
-		return s;
-	}
-
-	public Node createMinimalBST(int[] values, int start, int end, int level) {
-		System.out.println(indent(level) + "createMinimalBST(values, " + start + ", " + end + ")");
-
+	public Node createMinimalBST(int[] values, int start, int end) {
 		if (end < start) {
-			System.out.println(indent(level) + null);
 			return null;
 		}
 
 		int mid = (start + end) / 2;
 		Node node = new Node(values[mid]);
 
-		node.left = createMinimalBST(values, start, mid - 1, level + 1);
-		node.right = createMinimalBST(values, mid + 1, end, level + 1);
+		node.left = createMinimalBST(values, start, mid - 1);
+		node.right = createMinimalBST(values, mid + 1, end);
 
 		return node;
+	}
+
+	@Override
+	public String toString() {
+		horizontalTree = "";
+		preOrderTraversal(root, 0);
+		return horizontalTree;
+	}
+
+	public void preOrderTraversal(Node node, int depths) {
+		if (node != null) {
+			horizontalTree += indent(depths) + node.value + "\n";
+			preOrderTraversal(node.left, depths + 1);
+			preOrderTraversal(node.right, depths + 1);
+		}
+	}
+
+	public String indent(int tabs) {
+		String s = "";
+		for (int i = 0; i < tabs; i++) {
+			s += "\t";
+		}
+		return s;
 	}
 }

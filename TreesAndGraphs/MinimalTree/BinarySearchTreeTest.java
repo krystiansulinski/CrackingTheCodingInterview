@@ -10,13 +10,12 @@ import org.junit.Test;
 public class BinarySearchTreeTest {
 	@Test
 	public void createBinarySearchTree() {
-		int[] values = { 0, 1, 2, 3, 4, 5, 6 };// getIncreasingNumbers();
-
+		int[] values = getIncreasingNumbers();
+		
 		BinarySearchTree tree = new BinarySearchTree(values);
 
 		List<Integer> list = new ArrayList<>();
 		tree.inOrderTraversal(tree.root, list);
-		System.out.println(list);
 
 		for (int i = 0; i < values.length; i++) {
 			assertEquals(values[i], list.get(i));
