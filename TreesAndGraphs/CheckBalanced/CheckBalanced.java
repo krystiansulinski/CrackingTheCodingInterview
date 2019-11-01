@@ -1,4 +1,4 @@
-package ChechBalanced;
+package CheckBalanced;
 
 import MinimalTree.Node;
 
