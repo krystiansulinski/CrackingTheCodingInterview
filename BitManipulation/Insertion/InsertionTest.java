@@ -12,11 +12,15 @@ public class InsertionTest {
 		int i = 2;
 		int j = 6;
 		
-		assertEquals("10001001100", Integer.toBinaryString(Insertion.insert(N, M, i, j)));
-
+		assertEquals("10001001100", Integer.toBinaryString(Insertion.insertMyFirstSolution(N, M, i, j)));
+		assertEquals("10001001100", Integer.toBinaryString(Insertion.insertMyBestSolution(N, M, i, j)));
+		assertEquals("10001001100", Integer.toBinaryString(Insertion.insertBookSolution(N, M, i, j)));
+		
 		N = 0B1010101010;
 		M = 0B11100;
 		
-		assertEquals("1011110010", Integer.toBinaryString(Insertion.insert(N, M, i, j)));
+		assertEquals("1011110010", Integer.toBinaryString(Insertion.insertMyFirstSolution(N, M, i, j)));
+		assertEquals("1011110010", Integer.toBinaryString(Insertion.insertMyBestSolution(N, M, i, j)));
+		assertEquals("1011110010", Integer.toBinaryString(Insertion.insertBookSolution(N, M, i, j)));
 	}
 }
