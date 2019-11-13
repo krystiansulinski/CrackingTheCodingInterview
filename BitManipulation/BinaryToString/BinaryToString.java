@@ -2,7 +2,8 @@ package BinaryToString;
 
 public class BinaryToString {
 	public static String binaryToString(double val) {
-		String binary = "0.";
+		StringBuilder binary = new StringBuilder();
+		binary.append(".");
 		int exp = 1;
 
 		while (val != 0) {
@@ -13,14 +14,40 @@ public class BinaryToString {
 			double d = val - (1 / Math.pow(2, exp));
 
 			if (d < 0) {
-				binary += "0";
+				binary.append("0");
 			} else {
-				binary += "1";
+				binary.append("1");
 				val = d;
 			}
 			exp++;
 		}
 
-		return binary;
+		return binary.toString();
+	}
+
+	public static String binaryToStringBookSolution(double num) {
+		if (num <= 0 || num >= 1) {
+			return "ERROR";
+		}
+
+		StringBuilder binary = new StringBuilder();
+		binary.append(".");
+
+		while (num > 0) {
+			if (binary.length() >= 32) {
+				return "ERROR";
+			}
+
+			double r = num * 2;
+			if (r >= 1) {
+				binary.append("1");
+				num = r - 1;
+			} else {
+				binary.append("0");
+				num = r;
+			}
+		}
+
+		return binary.toString();
 	}
 }
