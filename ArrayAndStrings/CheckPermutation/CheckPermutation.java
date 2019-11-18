@@ -1,3 +1,4 @@
+package CheckPermutation;
 import java.util.HashMap;
 import java.util.Map;
 
