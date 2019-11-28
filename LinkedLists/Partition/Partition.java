@@ -18,15 +18,13 @@ import LinkedListNode.LinkedListNode;
 
 public class Partition {
 	public static void partition(LinkedListNode head, int partition) {
-		int i = 0;
 		LinkedListNode node = head, node2 = head, left = head;
 		LinkedListNode right = null;
 	
 		while (node != null) {
-			System.out.println(++i);
 			if (node.value < partition) {
 				if (right != null) {
-					i = merge(left, right, i);
+					merge(left, right);
 					right = null;
 					node = node2.next;
 				}
@@ -42,7 +40,7 @@ public class Partition {
 		}
 	}
 
-	private static int merge(LinkedListNode left, LinkedListNode right, int i) {
+	private static void merge(LinkedListNode left, LinkedListNode right) {
 		LinkedListNode shiftUs = right.next;
 		right.next = null;
 
@@ -51,10 +49,8 @@ public class Partition {
 
 		while (shiftUs.next != null) {
 			shiftUs = shiftUs.next;
-			System.out.println(++i);
 		}
 		shiftUs.next = tmp;
-		return i;
 	}
 
 	private static void moveFirstToLast(LinkedListNode head) {
