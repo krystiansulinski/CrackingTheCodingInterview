@@ -3,6 +3,8 @@ package RemoveDups;
 import java.util.HashSet;
 import java.util.Set;
 
+import LinkedListNode.LinkedListNode;
+
 public class RemoveDups {
 	// Time: O(n^2)
 	// Space: O(1)

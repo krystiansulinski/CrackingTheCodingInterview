@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import RemoveDups.LinkedListNode;
+import LinkedListNode.LinkedListNode;
 
 public class ReturnKthToLastTest {
 	@Test

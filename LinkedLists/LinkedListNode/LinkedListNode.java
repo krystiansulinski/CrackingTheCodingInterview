@@ -1,11 +1,9 @@
-package RemoveDups;
-
-
+package LinkedListNode;
 public class LinkedListNode {
 	public int value;
 	public LinkedListNode next;
 
-	LinkedListNode(int value) {
+	public LinkedListNode(int value) {
 		this.value = value;
 	}
 	

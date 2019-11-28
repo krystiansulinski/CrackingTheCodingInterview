@@ -1,6 +1,6 @@
 package DeleteMiddleNode;
 
-import RemoveDups.LinkedListNode;
+import LinkedListNode.LinkedListNode;
 
 public class DeleteMiddleNode {
 	public static boolean deleteMiddleNode(LinkedListNode node) {

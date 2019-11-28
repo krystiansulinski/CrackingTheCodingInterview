@@ -1,6 +1,6 @@
 package ReturnKthToLast;
 
-import RemoveDups.LinkedListNode;
+import LinkedListNode.LinkedListNode;
 
 public class ReturnKthToLast {
 	// Time: O(n)

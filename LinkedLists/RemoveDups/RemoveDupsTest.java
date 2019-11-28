@@ -2,6 +2,8 @@ package RemoveDups;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import LinkedListNode.LinkedListNode;
+
 public class RemoveDupsTest {
 	int[] nodes = { 1, 2, 1, 2, 3 };
 	
