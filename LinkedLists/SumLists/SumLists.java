@@ -60,32 +60,51 @@ public class SumLists {
 	public static LinkedListNode sumListsFollowUp(LinkedListNode a, LinkedListNode b) {
 		LinkedListNode dummyHead = new LinkedListNode(0);
 		LinkedListNode current = dummyHead;
-		List<Integer> carries = new ArrayList<>();
-		
-		int diff = getSize(a) - getSize(b);
-		if (diff > 0) {
-			LinkedListNode dummyB = new LinkedListNode(0);
-			for (int i = 0; i < diff; i++) {
-				dummyB = dummyB.next;
-				dummyB = new LinkedListNode(0);
-			}
-			dummyB.next = b;
-			sum(a, dummyB, current, carries);
-		} else if (diff < 0){
-			LinkedListNode dummyA = new LinkedListNode(0);
-			for (int i = 0; i > diff; i--) {
-				dummyA = dummyA.next;
-				dummyA = new LinkedListNode(0);
-			}
-			dummyA.next = a;
-			sum(dummyA, b, current, carries);
-		} else {
-			sum(a, b, current, carries);
+		LinkedListNode pa = a;
+		LinkedListNode pb = b;
+
+		int lenA = getlength(a);
+		int lenB = getlength(b);
+		if (lenA != lenB) {
+			pa = lenA > lenB ? a : b;
+			pb = lenB > lenA ? a : b;
+			pb = prefixWithZeros(pb, Math.min(lenA, lenB), Math.max(lenA, lenB));
 		}
 
-		// 8 -> 8 -> 8
-		// [1, 1, 1]
-		current = dummyHead;
+		List<Integer> carries = new ArrayList<>();
+		while (pa != null || pb != null) {
+			int sum = getValue(pa) + getValue(pb);
+			current.next = new LinkedListNode(sum % 10);
+			carries.add(sum / 10);
+
+			if (pa != null) {
+				pa = pa.next;
+			}
+			if (pb != null) {
+				pb = pb.next;
+			}
+			current = current.next;
+		}
+
+		addCarries(dummyHead, carries);
+
+		return dummyHead.next;
+	}
+
+	private static LinkedListNode prefixWithZeros(LinkedListNode list, int length, int desiredLength) {
+		LinkedListNode dummyNode = new LinkedListNode(0);
+		LinkedListNode current = dummyNode;
+		int i = 1;
+		while (length + i != desiredLength) {
+			current.next = new LinkedListNode(0);
+			current = current.next;
+			i++;
+		}
+		current.next = list;
+		return dummyNode;
+	}
+
+	private static void addCarries(LinkedListNode current, List<Integer> carries) {
 		if (carries.get(0) == 1) {
 			LinkedListNode next = current.next;
 			current.next = new LinkedListNode(1);
@@ -95,31 +114,13 @@ public class SumLists {
 
 		for (int i = 1; i < carries.size(); i++) {
 			if (carries.get(i) == 1) {
-				current.next.value++;
-				current = current.next;
-			}
-		}
-
-		return dummyHead.next;
-	}
-
-	private static void sum(LinkedListNode a, LinkedListNode b, LinkedListNode current, List<Integer> carries) {
-		while (a != null || b != null) {
-			int sum = getValue(a) + getValue(b);
-			current.next = new LinkedListNode(sum % 10);
-			carries.add(sum / 10);
-
-			if (a != null) {
-				a = a.next;
-			}
-			if (b != null) {
-				b = b.next;
-			}
+				current.next.value++;	
+			} 
 			current = current.next;
 		}
 	}
 
-	private static int getSize(LinkedListNode node) {
+	private static int getlength(LinkedListNode node) {
 		int size = 0;
 		while (node != null) {
 			size++;
