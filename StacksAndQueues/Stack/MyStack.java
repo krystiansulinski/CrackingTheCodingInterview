@@ -13,6 +13,7 @@ public class MyStack<T> {
 	}
 
 	private StackNode<T> top;
+	private int size;
 
 	public T pop() {
 		if (top == null) {
@@ -20,16 +21,17 @@ public class MyStack<T> {
 		}
 		T item = top.data;
 		top = top.next;
-		
+		this.size--;
 		return item;
 	}
-	
+
 	public void push(T item) {
 		StackNode<T> t = new StackNode<>(item);
 		t.next = top;
 		top = t;
+		this.size++;
 	}
-	
+
 	public T peek() {
 		if (top == null) {
 			throw new EmptyStackException();
@@ -39,5 +41,13 @@ public class MyStack<T> {
 
 	public boolean empty() {
 		return top == null;
+	}
+
+	public int size() {
+		return this.size;
+	}
+
+	public String toString() {
+		return "top: " + this.top.data.toString();
 	}
 }
