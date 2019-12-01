@@ -48,6 +48,16 @@ public class MyStack<T> {
 	}
 
 	public String toString() {
-		return "top: " + this.top.data.toString();
+		StringBuilder sb = new StringBuilder();
+		StackNode<T> t = top;
+		String arrow = " -> ";
+		
+		while (t != null) {
+			sb.append(t.data).append(arrow);
+			t = t.next;
+		}
+
+		sb.delete(sb.length() - arrow.length(), sb.length());
+		return sb.toString();
 	}
 }
