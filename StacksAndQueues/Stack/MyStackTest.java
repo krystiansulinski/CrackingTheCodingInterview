@@ -8,7 +8,7 @@ public class MyStackTest {
 	@Test
 	public void myStackTest() {
 		MyStack<Integer> stack = new MyStack<Integer>();
-		assertEquals(true, stack.empty());
+		assertEquals(true, stack.isEmpty());
 		stack.push(2);
 		stack.push(3);
 		assertEquals(2, stack.size());
@@ -16,6 +16,6 @@ public class MyStackTest {
 		assertEquals(new Integer(3), stack.pop());
 		assertEquals(1, stack.size());
 		assertEquals(new Integer(2), stack.pop());
-		assertEquals(true, stack.empty());
+		assertEquals(true, stack.isEmpty());
 	}
 }
