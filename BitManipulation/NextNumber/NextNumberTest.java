@@ -36,7 +36,8 @@ public class NextNumberTest {
 		pairs.put(Integer.MIN_VALUE, -1);
 		pairs.put(-1, -1);
 
-		pairs.forEach((key, value) -> assertEquals((int) value, NextNumber.getNextBigger(key)));
+		pairs.forEach((key, value) -> assertEquals((int) value, NextNumber.getNextBigger(key, false)));
+		pairs.forEach((key, value) -> assertEquals((int) value, NextNumber.getNextBigger(key, true)));
 	}
 
 	@Test
@@ -63,6 +64,7 @@ public class NextNumberTest {
 		pairs.put(-1, -1);
 		pairs.put(Integer.MIN_VALUE, -1);
 
-		pairs.forEach((key, value) -> assertEquals((int) value, NextNumber.getNextSmallest(key)));
+		pairs.forEach((key, value) -> assertEquals((int) value, NextNumber.getNextSmallest(key, false)));
+		pairs.forEach((key, value) -> assertEquals((int) value, NextNumber.getNextSmallest(key, true)));
 	}
 }
