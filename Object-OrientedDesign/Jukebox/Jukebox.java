@@ -39,7 +39,7 @@ public class Jukebox {
 	public void removeSongs(Map<String, Song> songs) {
 		for (String label : songs.keySet()) {
 			this.songs.remove(label);
-			buttons.remove(label);
+			buttons.remove((Object) label);
 		}
 	}
 
@@ -50,7 +50,7 @@ public class Jukebox {
 			songId.append(button.getLabel());
 		}
 
-		Song song = songs.get(songId);
+		Song song = songs.get(songId.toString());
 		if (song != null) {
 			play(song);
 		} else {
