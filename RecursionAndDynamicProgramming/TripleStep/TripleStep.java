@@ -8,50 +8,51 @@
 
 package TripleStep;
 
+// These solutions will overflow for n >= 37, so could use BigIntegers.
 public class TripleStep {
-	public static int tripleStep(int n) {
-		if (n <= 0) {
-			return 0;
-		}
-		return step(n, 0, 0, 0);
+	public static int topDownRecursive(int n) {
+		int[] memo = new int[n + 1];
+		return topDownRecursive(n, memo);
 	}
 
-	private static int step(int n, int stair, int i, int count) {
-		System.out.println(indent(i) + stair + ", ");
-		i++;
-		if (stair == n) {
+	private static int topDownRecursive(int n, int[] memo) {
+		if (n < 0) {
+			return 0;
+		}
+		if (n == 0) {
 			return 1;
-		} else if (stair > n) {
-			return 0;
 		}
 
-		return step(n, stair + 1, i, count) + step(n, stair + 2, i, count) + step(n, stair + 3, i, count);
+		if (memo[n] == 0) {
+			memo[n] = topDownRecursive(n - 1, memo) + topDownRecursive(n - 2, memo)
+					+ topDownRecursive(n - 3, memo);
+		}
+
+		return memo[n];
 	}
 
-//	private static int step(int n, int stair, int i, int count) {
-//		System.out.println(indent(i) + stair + ", ");
-//		i++;
-//		if (stair == n) {
-//			return 1;
-//		} else if (stair > n) {
-//			return 0;
-//		}
-//
-//		count = step(n, stair + 1, i, count);
-//		if (stair + 2 <= n) {
-//			count += step(n, stair + 2, i, count);
-//		}
-//		if (stair + 3 <= n) {
-//			count += step(n, stair + 3, i, count);
-//		}
-//		return count;
-//	}
-
-	private static String indent(int n) {
-		StringBuffer str = new StringBuffer();
-		for (int i = 0; i < n; i++) {
-			str.append(" ");
+	public static int bottomUpIterative(int n) {
+		if (n < 0) {
+			return 0;
 		}
-		return str.toString();
+		if (n == 1) {
+			return 1;
+		}
+		if (n == 2) {
+			return 2;
+		}
+
+		int a = 1;
+		int b = 2;
+		int c = 4;
+
+		for (int i = 3; i < n; i++) {
+			int d = c + b + a;
+			a = b;
+			b = c;
+			c = d;
+		}
+
+		return c;
 	}
 }
