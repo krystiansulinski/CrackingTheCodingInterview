@@ -9,105 +9,71 @@
 
 package RobotInAGrid;
 
+import java.awt.Point;
+import java.util.ArrayList;
+
 public class RobotInAGrid {
-	public static int[][] findPath(int rows, int cols) {
-		int[][] gridRecursive = Helper.generateGridWithRandomOffSpots(rows, cols, 0.8);
-		int[][] gridIterative = new int[rows][cols];
-		System.arraycopy(gridRecursive, 0, gridIterative, 0, rows);
+	public static ArrayList<Point> getPath(int rows, int cols) {
+		boolean[][] grid = Helper.generateRandomGrid(rows, cols, 0.8);
+		System.out.println(Helper.toString(grid));
 
-		gridRecursive = findPath(gridRecursive, 0, 0);
-
-		System.out.println(
-				"Legend:\n0 - available cells\n1 - path\n2 - detected off spot\n8 - off limits cells\n");
-
-		Helper.print(gridIterative);
-
-		return gridRecursive;
+		ArrayList<Point> path = new ArrayList<Point>();
+		if (getPath(grid, grid.length - 1, grid[0].length - 1, path)) {
+			System.out.println(Helper.getPrintedPath(path).toString());
+			return path;
+		}
+		System.out.println("No path");
+		return null;
 	}
 
-	// Move the robot down or left to 0 and rename the spot to 1. If hasn't reached
-	// the bottom right, go back and mark the spot as 2.
-	private static int[][] findPath(int[][] grid, int row, int col) {
-		grid[row][col] = 1;
-
-		int rows = grid.length;
-		int cols = grid[0].length;
-		boolean isBottomRight = row == rows - 1 && col == cols - 1;
-		boolean canGoRight = col + 1 < cols && grid[row][col + 1] == 0;
-		boolean canGoDown = row + 1 < rows && grid[row + 1][col] == 0;
-		boolean canGoLeft = col > 0 && grid[row][col - 1] == 1;
-		boolean canGoUp = row > 0 && grid[row - 1][col] == 1;
-
-		if (isBottomRight) {
-			return grid;
-		} else if (canGoRight) {
-			findPath(grid, row, col + 1);
-		} else if (canGoDown) {
-			findPath(grid, row + 1, col);
-		} else if (canGoLeft) {
-			grid[row][col] = 2;
-			findPath(grid, row, col - 1);
-		} else if (canGoUp) {
-			grid[row][col] = 2;
-			findPath(grid, row - 1, col);
+	public static boolean getPath(boolean[][] grid, int row, int col, ArrayList<Point> path) {
+		if (col < 0 || row < 0 || !grid[row][col]) {
+			return false;
 		}
-		return grid;
+
+		boolean isAtOrigin = (row == 0) && (col == 0);
+
+		if (isAtOrigin || getPath(grid, row, col - 1, path) || getPath(grid, row - 1, col, path)) {
+			path.add(new Point(row, col));
+			return true;
+		}
+
+		return false;
 	}
 
 	static class Helper {
-		private static void print(int[][] grid) {
-			StringBuffer path = printPath(grid, 0, 0, new StringBuffer());
-			System.out.println(
-					"Path: " + (path.length() == 0 ? "No path exists." : path.toString()) + "\n");
-			printGrid(grid);
+		private static boolean[][] generateRandomGrid(int rows, int cols, double probability) {
+			boolean[][] grid = new boolean[rows][cols];
+
+			for (int r = 0; r < rows; r++) {
+				for (int c = 0; c < cols; c++) {
+					if (r == 1 && c == 1 || r == rows - 1 && c == cols - 1) {
+						grid[r][c] = true;
+					}
+					grid[r][c] = Math.random() < probability ? true : false;
+				}
+			}
+
+			return grid;
 		}
 
-		private static StringBuffer printPath(int[][] grid, int row, int col, StringBuffer str) {
-			int rows = grid.length;
-			int cols = grid[0].length;
-
-			boolean isBottomRight = row == rows - 1 && col == cols - 1;
-			boolean canGoRight = col + 1 < cols && grid[row][col + 1] == 1;
-			boolean canGoDown = row + 1 < rows && grid[row + 1][col] == 1;
-
-			if (isBottomRight) {
-				return str;
-			} else if (canGoRight) {
-				str.append("right ");
-				printPath(grid, row, col + 1, str);
-			} else if (canGoDown) {
-				str.append("down ");
-				printPath(grid, row + 1, col, str);
+		public static StringBuffer getPrintedPath(ArrayList<Point> path) {
+			StringBuffer str = new StringBuffer();
+			for (int point = 0; point < path.size(); point++) {
+				str.append(path.get(point).x + ", " + path.get(point).y + "\n");
 			}
 			return str;
 		}
 
-		private static int[][] generateGridWithRandomOffSpots(int rows, int cols,
-				double probability) {
-			int[][] grid = new int[rows][cols];
-
-			for (int r = 0; r < rows; r++) {
-				for (int c = 0; c < cols; c++) {
-					int value = Math.random() < probability ? 0 : 8;
-					if (r == 0 && c == 0 || r == rows - 1 && c == cols - 1) {
-						continue;
-					}
-					grid[r][c] = value;
-				}
-			}
-
-			return grid;
-		}
-
-		private static void printGrid(int[][] grid) {
+		private static StringBuffer toString(boolean[][] grid) {
 			StringBuffer s = new StringBuffer();
-			for (int[] row : grid) {
-				for (int col : row) {
-					s.append(col + " ");
+			for (int row = 0; row < grid.length; row++) {
+				for (int col = 0; col < grid[row].length; col++) {
+					s.append((grid[row][col] ? 1 : 0) + " ");
 				}
 				s.append("\n");
 			}
-			System.out.println(s);
+			return s;
 		}
 	}
 }
