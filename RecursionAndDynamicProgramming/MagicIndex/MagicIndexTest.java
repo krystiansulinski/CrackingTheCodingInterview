@@ -7,7 +7,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 public class MagicIndexTest {
-	@Test
+//	@Test
 	public void magicIndexTest() {
 		int[][] arr = getRandomUniqueSortedArrays(10);
 
@@ -21,7 +21,13 @@ public class MagicIndexTest {
 		int[][] arr = getRandomSortedArrays(10);
 
 		for (int[] i : arr) {
-			assertEquals(MagicIndexTest.magicIndex(i), MagicIndex.magicIndexNonDistinct(i));
+			int a = MagicIndexTest.magicIndex(i);
+			int b = MagicIndex.magicIndex(i);
+			if (a != b) {
+				System.out.println(Arrays.toString(i) + ", " + a);
+				System.out.println(Arrays.toString(i) + ", " + b + "\n");
+			}
+			assertEquals(a, b);
 		}
 	}
 
@@ -39,7 +45,6 @@ public class MagicIndexTest {
 
 			}
 			Arrays.sort(row);
-			reverse(row);
 		}
 		return arr;
 	}
@@ -53,7 +58,6 @@ public class MagicIndexTest {
 				row[col] = random;
 			}
 			Arrays.sort(row);
-			reverse(row);
 		}
 		return arr;
 	}
@@ -65,16 +69,6 @@ public class MagicIndexTest {
 			}
 		}
 		return false;
-	}
-
-	public static void reverse(int[] input) {
-		int length = input.length;
-
-		for (int i = 0; i < length / 2; i++) {
-			int temp = input[i];
-			input[i] = input[length - 1 - i];
-			input[length - 1 - i] = temp;
-		}
 	}
 
 	public static int magicIndex(int[] arr) {
