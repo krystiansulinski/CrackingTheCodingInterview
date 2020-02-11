@@ -1,7 +1,5 @@
 package IsUnique;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class IsUnique {
@@ -11,7 +9,7 @@ public class IsUnique {
 		if (str.length() > 26) { // assumes only letters a through z so we can use just a single int
 			return false;
 		}
-		List<Integer> list = new ArrayList<>();
+
 		int checker = 0;
 		for (char c: str.toCharArray()) {
 			int value = c - 'a';

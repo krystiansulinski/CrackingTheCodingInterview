@@ -9,7 +9,7 @@ import org.junit.Test;
 public class SortStackTest {
 	@Test
 	public void sortStackTest() {
-		MyStack<Integer> stack = new MyStack();
+		MyStack<Integer> stack = new MyStack<>();
 		stack.push(1);
 		stack.push(5);
 		stack.push(2);
