@@ -7,10 +7,9 @@ import org.junit.Test;
 public class RecursiveMultiplyTest {
 	@Test
 	public void recursiveMultiplyTest() {
-		final int a = (int) (Math.random() * 10);
-		final int b = (int) (Math.random() * 10);
+		final int a = (int) (Math.random() * 100);
+		final int b = (int) (Math.random() * 100);
 
-		System.out.println(a + " * " + b + " = " + a * b);
 		assertEquals(a * b, RecursiveMultiply.multiply(a, b));
 	}
 }
