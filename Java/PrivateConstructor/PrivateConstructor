@@ -1,0 +1,21 @@
+13.1 Private Constructor: In terms of inheritance, what is the effect of keeping a constructor private?
+
+A class with a private constructor can be inherited by its own or it's parent's inner classes only.
+
+// This code is valid:
+public class OuterClass {
+	OuterClass() {
+		InnerClassA a = new InnerClassA();
+	}
+
+	class InnerClassA {
+		private InnerClassA() {
+		}
+
+		class InnerInnerClassB extends InnerClassA {
+		}
+	}
+
+	class InnerClassB extends InnerClassA {
+	}
+}
