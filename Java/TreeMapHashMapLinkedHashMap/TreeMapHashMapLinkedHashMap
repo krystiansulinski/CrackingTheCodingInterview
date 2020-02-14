@@ -1,0 +1,22 @@
+13.5 TreeMap, HashMap, LinkedHashMap: Explain the differences between
+TreeMap, HashMap and LinkedHashMap. Provide an example of when each one
+would be best.
+
+HashMap
+- implemented by an array of linked lists
+- unordered
+- O(1) lookup and insertion
+- can be used to store authors and books
+
+TreeMap
+- implemented by a Red-Black Tree
+- sorted
+- O(logn) lookup and insertion
+- can be used to store authors and their books in an alphabetical order
+
+LinkedHashMap
+- implemented by a doubly-linked buckets
+- keys ordered by their insertion order
+- O(1) lookup and insertion
+- can be used to store authors and books if we want to for example display
+their 3 last added books
