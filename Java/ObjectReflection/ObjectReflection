@@ -1,0 +1,6 @@
+13.6 Object Reflection: Explain what object reflection is in Java
+and why it is useful.
+
+Object reflection is the possibility to find out about object's class, methods, attributes etc. during the runtime.
+It is useful because it allows the language to be more dynamic and determine, for example, what object's method
+could be called during the runtime. It also allows to access object's private methods from outside of the object itself.
