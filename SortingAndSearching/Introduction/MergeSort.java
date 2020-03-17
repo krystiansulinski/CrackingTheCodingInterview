@@ -2,73 +2,61 @@ package Introduction;
 
 import java.util.Arrays;
 
-public class MergeSort {
+class MergeSort {
 	public static void main(String[] args) {
-		int[] array = { 8, 3, 1, 5, 2 };
-		mergesort(array);
+		int[] array = { 14, 7, 3, 12, 9, 11, 6, 2 };
+		mergeSort(array, 0, array.length - 1);
 		System.out.println(Arrays.toString(array));
 	}
 
-	public static void mergesort(int[] array) {
-		int[] helper = new int[array.length];
-		mergesort(array, helper, 0, array.length - 1, 0);
-	}
-	
-	public static StringBuffer getTabs(int tabs) {
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < tabs; i++) {
-			sb.append("\t");
-		}
-		return sb;
-	}
-
-	public static void mergesort(int[] array, int[] helper, int low, int high, int tabs) {
-		System.out.println(getTabs(tabs) + "mergesort(" + Arrays.toString(array) + ", " + Arrays.toString(helper)
-				+ ", " + low + ", " + high + ")");
-
+	public static void mergeSort(int[] array, int low, int high) {
 		if (low < high) {
-			int middle = low + (high - low) / 2;
-			mergesort(array, helper, low, middle, tabs + 1); // Sort left half
-			mergesort(array, helper, middle + 1, high, tabs + 1); // Sort right half
-			merge(array, helper, low, middle, high, tabs + 1); // Merge them
+			int mid = (low + high) / 2;
+			mergeSort(array, low, mid);
+			mergeSort(array, mid + 1, high);
+			merge(array, low, mid, high);
 		}
 	}
 
-	public static void merge(int[] array, int[] helper, int low, int middle, int high, int tabs) {
-		System.out.println(getTabs(tabs) + "merge(" + Arrays.toString(array) + ", " + Arrays.toString(helper)
-		+ ", " + low + ", " + middle + ", " + high +  ")");
-		/* Copy both halves into a helper array */
-		for (int i = low; i <= high; i++) {
-			helper[i] = array[i];
+	public static void merge(int[] array, int low, int mid, int high) {
+		int[] lowHalf = new int[mid - low + 1];
+		int[] highHalf = new int[high - mid];
+
+		int k = low;
+		int i;
+		int j;
+		for (i = 0; k <= mid; i++, k++) {
+			lowHalf[i] = array[k];
 		}
 
-		int helperLeft = low;
-		int helperRight = middle + 1;
-		int current = low;
+		for (j = 0; k <= high; j++, k++) {
+			highHalf[j] = array[k];
+		}
 
-		/*
-		 * Iterate through helper array. Compare the left and right half, copying back
-		 * the smaller element from the two halves into the original array.
-		 */
-		while (helperLeft <= middle && helperRight <= high) {
-			if (helper[helperLeft] <= helper[helperRight]) {
-				array[current] = helper[helperLeft];
-				helperLeft++;
-			} else { // If right element is smaller than left element
-				array[current] = helper[helperRight];
-				helperRight++;
+		k = low;
+		i = 0;
+		j = 0;
+		while (i < lowHalf.length && j < highHalf.length) {
+			if (lowHalf[i] < highHalf[j]) {
+				array[k] = lowHalf[i];
+				i++;
+			} else {
+				array[k] = highHalf[j];
+				j++;
 			}
-			current++;
+			k++;
 		}
 
-		/*
-		 * Copy the rest of the left side of the array into the target array
-		 */
-		int remaining = middle - helperLeft;
-		for (int i = 0; i <= remaining; i++) {
-			array[current + i] = helper[helperLeft + i];
+		while (i < lowHalf.length) {
+			array[k] = lowHalf[i];
+			i++;
+			k++;
 		}
-		System.out.println(getTabs(tabs) + "array : " + Arrays.toString(array));
-		System.out.println(getTabs(tabs) + "helper: " + Arrays.toString(helper));
+
+		while (j < highHalf.length) {
+			array[k] = highHalf[j];
+			j++;
+			k++;
+		}
 	}
 }
