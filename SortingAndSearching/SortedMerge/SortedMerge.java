@@ -7,42 +7,34 @@
 package SortedMerge;
 
 public class SortedMerge {
-	public static void sortedMerge(int[] A, int[] B, int bufferIndex) {
-		int[] helper = new int[bufferIndex + B.length];
-		
-		for (int i = 0; i < bufferIndex; i++) {
-			helper[i] = A[i];
-		}
-		
-		for (int i = 0; i < B.length; i++) {
-			helper[bufferIndex + i] = B[i];
-		}
-		
-		int current = 0;
-		int left = 0;
-		int right = bufferIndex;
-		
-		while (left < bufferIndex && right < helper.length) {
-			if (helper[left] < helper[right]) {
-				A[current] = helper[left];
-				left++;
+	// Time: O(arr.size)
+	// Space: 0(1)
+	public static void sortedMerge(int[] arr, int[] toMerge, int bufferStartIndex) {
+		int left = bufferStartIndex - 1;
+		int right = toMerge.length - 1;
+		int current = arr.length - 1;
+
+		while (left > -1 && right > -1) {
+			if (arr[left] > toMerge[right]) {
+				arr[current] = arr[left];
+				left--;
 			} else {
-				A[current] = helper[right];
-				right++;
+				arr[current] = toMerge[right];
+				right--;
 			}
-			current++;
+			current--;
 		}
-		
-		int remaining = bufferIndex - left;
-		for (int i = 0; i < remaining; i++) {
-			A[current] = helper[left + i];
-			current++;
+
+		while (left > -1) {
+			arr[current] = arr[left];
+			left--;
+			current--;
 		}
-		
-		remaining = helper.length - right;
-		for (int i = 0; i < remaining; i++) {
-			A[current] = helper[right + i];
-			current++;
+
+		while (right > -1) {
+			arr[current] = toMerge[right];
+			right--;
+			current--;
 		}
 	}
 }

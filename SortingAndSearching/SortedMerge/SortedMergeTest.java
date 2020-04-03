@@ -9,7 +9,7 @@ import org.junit.Test;
 public class SortedMergeTest {
 	@Test
 	public void sortedMergeTest() {
-		final int SIZE = 10;
+		final int SIZE = 5;
 		final int ITERATIONS = 100;
 		
 		for (int i = 0; i < ITERATIONS; i++) {
