@@ -43,7 +43,9 @@ public class SortedMergeTest {
 	private int[] mergeAndSort(final int SIZE, int[] A, int[] B) {
 		int[] C = Arrays.copyOf(A, SIZE * 2);
 		System.arraycopy(B, 0, C, SIZE, SIZE);
+		
 		Arrays.sort(C);
+		
 		return C;
 	}
 }
