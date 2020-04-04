@@ -9,8 +9,8 @@ package SortedMerge;
 public class SortedMerge {
 	// Time: O(arr.size)
 	// Space: 0(1)
-	public static void sortedMerge(int[] arr, int[] toMerge, int bufferStartIndex) {
-		int left = bufferStartIndex - 1;
+	public static void sortedMerge(int[] arr, int[] toMerge) {
+		int left = arr.length - toMerge.length - 1; // last index of arr (before the buffer)
 		int right = toMerge.length - 1;
 		int current = arr.length - 1;
 
@@ -22,12 +22,6 @@ public class SortedMerge {
 				arr[current] = toMerge[right];
 				right--;
 			}
-			current--;
-		}
-
-		while (left > -1) {
-			arr[current] = arr[left];
-			left--;
 			current--;
 		}
 

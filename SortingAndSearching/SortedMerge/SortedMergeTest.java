@@ -9,43 +9,50 @@ import org.junit.Test;
 public class SortedMergeTest {
 	@Test
 	public void sortedMergeTest() {
-		final int SIZE = 5;
-		final int ITERATIONS = 100;
+		final int LENGTH = 8;
+		final int ITERATIONS = 1000;
 		
 		for (int i = 0; i < ITERATIONS; i++) {
-			int[] A = new int[SIZE * 2];
-			System.arraycopy(randomSortedArray(SIZE), 0, A, 0, SIZE);
-			int[] B = randomSortedArray(SIZE);
-			int[] C = mergeAndSort(SIZE, A, B);
+			int[] first = getRandomSortedArrayWithBuffer(LENGTH);
+			int[] second = getRandomSortedArray(LENGTH);
+			int[] sorted = merge(first, second);
+			
+			System.out.println("A     : " + Arrays.toString(first));
+			System.out.println("B     : " + Arrays.toString(second));
 
-			System.out.println("First : " + Arrays.toString(A));
-			System.out.println("Second: " + Arrays.toString(B));
+			SortedMerge.sortedMerge(first, second);
+			assertArrayEquals(sorted, first);
 
-			SortedMerge.sortedMerge(A, B, SIZE);
-			assertArrayEquals(C, A);
-
-			System.out.println("Sorted: " + Arrays.toString(A) + "\n");
+			System.out.println("Sorted: " + Arrays.toString(first) + "\n");
 		}
 	}
 
-	public int[] randomSortedArray(int size) {
-		int[] array = new int[size];
+	private int[] getRandomSortedArrayWithBuffer(final int length) {
+		int[] first = new int[length * 2];
+		int[] temp = getRandomSortedArray(length);
+		
+		System.arraycopy(temp, 0, first, 0, length);
+		
+		return first;
+	}
 
+	private int[] getRandomSortedArray(final int length) {
+		int[] array = new int[length];
 		for (int i = 0; i < array.length; i++) {
-			array[i] = (int) (Math.random() * (size + 1));
+			array[i] = (int) (Math.random() * (length + 1));
 		}
-
+		
 		Arrays.sort(array);
-
+	
 		return array;
 	}
 
-	private int[] mergeAndSort(final int SIZE, int[] A, int[] B) {
-		int[] C = Arrays.copyOf(A, SIZE * 2);
-		System.arraycopy(B, 0, C, SIZE, SIZE);
+	private int[] merge(int[] first, int[] second) {
+		int[] merged = Arrays.copyOf(first, first.length);
+		System.arraycopy(second, 0, merged, second.length, second.length);
 		
-		Arrays.sort(C);
+		Arrays.sort(merged);
 		
-		return C;
+		return merged;
 	}
 }
