@@ -2,20 +2,11 @@ package Introduction;
 
 import java.util.Arrays;
 
-class MergeSort {
+public class MergeSort {
 	public static void main(String[] args) {
 		int[] array = { 14, 7, 3, 12, 9, 11, 6, 2 };
 		mergeSort(array, 0, array.length - 1);
 		System.out.println(Arrays.toString(array));
-	}
-
-	public static void mergeSort(int[] array, int low, int high) {
-		if (low < high) {
-			int mid = (low + high) / 2;
-			mergeSort(array, low, mid);
-			mergeSort(array, mid + 1, high);
-			merge(array, low, mid, high);
-		}
 	}
 
 	public static void merge(int[] array, int low, int mid, int high) {
@@ -57,6 +48,15 @@ class MergeSort {
 			array[k] = highHalf[j];
 			j++;
 			k++;
+		}
+	}
+
+	public static void mergeSort(int[] array, int low, int high) {
+		if (low < high) {
+			int mid = (low + high) / 2;
+			mergeSort(array, low, mid);
+			mergeSort(array, mid + 1, high);
+			merge(array, low, mid, high);
 		}
 	}
 }
