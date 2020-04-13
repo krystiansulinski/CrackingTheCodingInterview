@@ -37,7 +37,7 @@ public class GroupAnagramsTest {
 	@Test
 	public void groupAnagramsTest() {
 		final int MAX_STRING_LENGTH = 3;// 3;
-		final int STRINGS_IN_ARRAY = 5;// 30;
+		final int STRINGS_IN_ARRAY = 8;// 30;
 
 		final String[] array = getRandomStrings(STRINGS_IN_ARRAY, MAX_STRING_LENGTH, 'a', 'e');
 		System.out.println("input : " + Arrays.toString(array));
