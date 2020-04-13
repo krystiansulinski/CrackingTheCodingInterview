@@ -37,12 +37,16 @@ public class GroupAnagramsTest {
 	@Test
 	public void groupAnagramsTest() {
 		final int MAX_STRING_LENGTH = 3;// 3;
-		final int STRINGS_IN_ARRAY = 8;// 30;
+		final int STRINGS_IN_ARRAY = 20;// 30;
 
 		final String[] array = getRandomStrings(STRINGS_IN_ARRAY, MAX_STRING_LENGTH, 'a', 'e');
 		System.out.println("input : " + Arrays.toString(array));
+		GroupAnagrams ga = new GroupAnagrams();
 
-		String[] grouped = GroupAnagrams.groupAnagrams(array);
-		System.out.println("output: " + Arrays.toString(grouped) + "\n");
+		String[] grouped = ga.groupAnagrams(array);
+		ga.groupAnagramsBookSolution(array);
+
+		System.out.println("output: " + Arrays.toString(grouped));
+		System.out.println("book  : " + Arrays.toString(array) + "\n");
 	}
 }
