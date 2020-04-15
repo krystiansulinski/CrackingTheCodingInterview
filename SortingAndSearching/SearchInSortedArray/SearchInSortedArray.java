@@ -13,31 +13,27 @@ package SearchInSortedArray;
 
 class SearchInSortedArray {
 	static int searchInSortedArray(int[] arr, int key) {
-		int lowLeft = 0;
-		int highLeft = arr.length;
+		/* find minimum value index */
+		int min = 0;
 
-		int lowRight = 0;
-		int highRight = arr.length;
-
-		for (int i = 0; i < arr.length - 1; i++) {
-			if (arr[i] == key) {
-				return i;
+		while (min < arr.length - 1 && arr[min] < arr[min + 1]) {
+			if (arr[min] == key) {
+				return min;
 			}
+			min++;
+		}
+		min++;
 
-			if (arr[i] > arr[i + 1]) {
-				highLeft = i;
-				lowRight = i + 1;
-			}
+		/* perform two binary searches */
+		int leftArrayIndex = binarySearch(arr, key, 0, min - 1);
+		if (leftArrayIndex != -1) {
+			return leftArrayIndex;
 		}
 
-		int leftIndex = binarySearch(arr, key, lowLeft, highLeft);
-		if (leftIndex != -1) {
-			return leftIndex;
-		}
-
-		return binarySearch(arr, key, lowRight, highRight);
+		return binarySearch(arr, key, min + 1, arr.length - 1);
 	}
 
+	/* Input: find 5 in {15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14} */
 	static int binarySearch(int[] arr, int key, int fromIndex, int toIndex) {
 		int low = fromIndex;
 		int high = toIndex;
