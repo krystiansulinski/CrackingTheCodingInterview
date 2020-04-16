@@ -13,43 +13,49 @@ package SearchInSortedArray;
 
 class SearchInSortedArray {
 	static int searchInSortedArray(int[] arr, int key) {
-		/* find minimum value index */
-		int min = 0;
+		int aLow = 0;
+		int aHigh = (0 + arr.length - 1) / 2;
 
-		while (min < arr.length - 1 && arr[min] < arr[min + 1]) {
-			if (arr[min] == key) {
-				return min;
+		int bLow = aHigh + 1;
+		int bHigh = arr.length - 1;
+
+		while (true) {
+			int aMid = (aLow + aHigh) / 2;
+			int aMidVal = arr[aMid];
+
+			int bMid = (bLow + bHigh) / 2;
+			int bMidVal = arr[bMid];
+
+			if (key > aMidVal) {
+				aLow = aMid + 1;
+			} else if (key < aMidVal) {
+				aHigh = aMid - 1;
+				if (aMidVal < bMidVal) {
+					bLow = bMid + 1;
+					bMid = (bLow + bHigh) / 2;
+					bMidVal = arr[bMid];
+				}
 			}
-			min++;
-		}
-		min++;
 
-		/* perform two binary searches */
-		int leftArrayIndex = binarySearch(arr, key, 0, min - 1);
-		if (leftArrayIndex != -1) {
-			return leftArrayIndex;
-		}
+			if (key > bMidVal) {
+				bLow = bMid + 1;
+			} else if (key < bMidVal) {
+				bHigh = bMid - 1;
+				if (bMidVal < aMidVal) {
+					aLow = aMid + 1;
+				}
+			}
 
-		return binarySearch(arr, key, min + 1, arr.length - 1);
-	}
+			System.out.println("aMidVal: " + aMidVal + ", bMidVal: " + bMidVal);
 
-	/* Input: find 5 in {15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14} */
-	static int binarySearch(int[] arr, int key, int fromIndex, int toIndex) {
-		int low = fromIndex;
-		int high = toIndex;
-
-		while (low <= high) {
-			int mid = (low + high) / 2;
-			int midVal = arr[mid];
-
-			if (midVal < key) {
-				low = mid + 1;
-			} else if (midVal > key) {
-				high = mid - 1;
-			} else {
-				return mid;
+			if (aMidVal == key) {
+				System.out.println();
+				return aMid;
+			}
+			if (bMidVal == key) {
+				System.out.println();
+				return bMid;
 			}
 		}
-		return -1;
 	}
 }

@@ -1,27 +1,39 @@
 package SearchInSortedArray;
 
-import static org.junit.Assert.assertEquals;
+import java.util.Arrays;
 
 import org.junit.Test;
 
-public class SearchInSortedArrayTest {
-	@Test
-	public void searchInSortedArray() {
-		int[] arr = { 15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14 };
+import Helper.ArraysHelper;
 
-		assertEquals(8, SearchInSortedArray.searchInSortedArray(arr, 5));
-		assertEquals(0, SearchInSortedArray.searchInSortedArray(arr, 15));
-		assertEquals(11, SearchInSortedArray.searchInSortedArray(arr, 14));
-		assertEquals(1, SearchInSortedArray.searchInSortedArray(arr, 16));
-		assertEquals(3, SearchInSortedArray.searchInSortedArray(arr, 20));
-	}
+public class SearchInSortedArrayTest {
+//	@Test
+//	public void searchInSortedArray() {
+//		int[] arr = { 15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14 };
+//
+//		for (int i = 0; i < arr.length; i++) {
+//			assertEquals(i, SearchInSortedArray.searchInSortedArray(arr, arr[i]));
+//		}
+//	}
+//
+//	@Test
+//	public void searchInSortedArray2() {
+//		int[] arr = { 1, 2, 3, 4, 5, 0 };
+//
+//		for (int i = 0; i < arr.length; i++) {
+//			assertEquals(i, SearchInSortedArray.searchInSortedArray(arr, arr[i]));
+//		}
+//	}
 
 	@Test
 	public void searchInSortedArray2() {
-		int[] arr = { 1, 2, 3, 4, 5, 0 };
+		final int LENGTH = 10;
+		int[] arr = ArraysHelper.getRandomSortedArray(LENGTH);
+		arr = ArraysHelper.rotateRandomly(arr);
+		System.out.println(Arrays.toString(arr));
 
-//		assertEquals(5, SearchInSortedArray.searchInSortedArray(arr, 0));
-		assertEquals(0, SearchInSortedArray.searchInSortedArray(arr, 1));
-		assertEquals(4, SearchInSortedArray.searchInSortedArray(arr, 5));
+//		for (int element : arr) {
+//			assertEquals(element, arr[SearchInSortedArray.searchInSortedArray(arr, element)]);
+//		}
 	}
 }
