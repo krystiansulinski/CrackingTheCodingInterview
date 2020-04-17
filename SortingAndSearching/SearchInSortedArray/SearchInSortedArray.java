@@ -11,50 +11,88 @@
  */
 package SearchInSortedArray;
 
+import java.util.Arrays;
+
 class SearchInSortedArray {
+//	[9, 0, 0, 1, 1, 2, 4, 6, 6, 7], 9
+//	[0 .. 2 .. 4] | [5 .. 7 .. 9]
+//	[3 .. 3 .. 4] | [8 .. 8 .. 9]
+//	[4 .. 4 .. 4] | [9 .. 9 .. 9]
+//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
+//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
+//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
+//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
+//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
+//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
+//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
+
 	static int searchInSortedArray(int[] arr, int key) {
-		int aLow = 0;
-		int aHigh = (0 + arr.length - 1) / 2;
+		System.out.println(Arrays.toString(arr) + ", " + key);
+		int a = 0;
+		int b = (arr.length - 1) / 2;
 
-		int bLow = aHigh + 1;
-		int bHigh = arr.length - 1;
+		int c = b + 1;
+		int d = arr.length - 1;
 
-		while (true) {
-			int aMid = (aLow + aHigh) / 2;
-			int aMidVal = arr[aMid];
+		int count = 0;
+		while (true) { // improve
+			int lMid = (a + b) / 2;
+			int rMid = (c + d) / 2;
 
-			int bMid = (bLow + bHigh) / 2;
-			int bMidVal = arr[bMid];
+			int lMidVal = arr[lMid];
+			int rMidVal = arr[rMid];
 
-			if (key > aMidVal) {
-				aLow = aMid + 1;
-			} else if (key < aMidVal) {
-				aHigh = aMid - 1;
-				if (aMidVal < bMidVal) {
-					bLow = bMid + 1;
-					bMid = (bLow + bHigh) / 2;
-					bMidVal = arr[bMid];
+			System.out.println(
+					"[" + a + " .. " + lMid + " .. " + b + "] | " + "[" + c + " .. " + rMid + " .. " + d + "]");
+
+			if (lMidVal == key) {
+				System.out.println("found in left at " + lMid);
+				System.out.println();
+				return lMid;
+			}
+			if (rMidVal == key) {
+				System.out.println("found in right at " + rMid);
+				System.out.println();
+				return rMid;
+			}
+
+			/* search 'left' array */
+			if (a <= b) {
+				if (lMidVal < key) {
+					a = lMid + 1;
+					if (lMidVal > rMidVal && c >= d) { // verify that
+						d = arr.length - 1;
+						c = ((arr.length - 1) / 2 + d) / 2;
+					}
+				} else if (lMidVal > key) {
+					b = lMid - 1;
+					if (c <= d && lMidVal < rMidVal) {
+						c = rMid + 1;
+						rMid = (c + d) / 2;
+						rMidVal = arr[rMid];
+					}
 				}
 			}
 
-			if (key > bMidVal) {
-				bLow = bMid + 1;
-			} else if (key < bMidVal) {
-				bHigh = bMid - 1;
-				if (bMidVal < aMidVal) {
-					aLow = aMid + 1;
+			/* search 'right' array */
+			if (c <= d) {
+				if (rMidVal < key) {
+					c = rMid + 1;
+					if (rMidVal > lMidVal && a >= b) { // verify that
+						a = 0;
+						b = b / 2;
+					}
+				} else if (rMidVal > key) {
+					d = rMid - 1;
+					if (a <= b && rMidVal < lMidVal) {
+						a = lMid + 1;
+					}
 				}
 			}
 
-			System.out.println("aMidVal: " + aMidVal + ", bMidVal: " + bMidVal);
-
-			if (aMidVal == key) {
-				System.out.println();
-				return aMid;
-			}
-			if (bMidVal == key) {
-				System.out.println();
-				return bMid;
+			count++;
+			if (count == arr.length - 1) {
+				return -1;
 			}
 		}
 	}
