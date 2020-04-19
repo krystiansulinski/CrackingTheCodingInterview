@@ -14,86 +14,55 @@ package SearchInSortedArray;
 import java.util.Arrays;
 
 class SearchInSortedArray {
-//	[9, 0, 0, 1, 1, 2, 4, 6, 6, 7], 9
-//	[0 .. 2 .. 4] | [5 .. 7 .. 9]
-//	[3 .. 3 .. 4] | [8 .. 8 .. 9]
-//	[4 .. 4 .. 4] | [9 .. 9 .. 9]
-//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
-//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
-//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
-//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
-//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
-//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
-//	[5 .. 4 .. 4] | [10 .. 9 .. 9]
+	private int count;
 
-	static int searchInSortedArray(int[] arr, int key) {
-		System.out.println(Arrays.toString(arr) + ", " + key);
-		int a = 0;
-		int b = (arr.length - 1) / 2;
+	int searchInSortedArray(int[] arr, int key) {
+		this.count = 0;
+		int idx = binarySearch(arr, key, -2, 0, arr.length - 1);
+		System.out.println(Arrays.toString(arr) + ", " + key + " [" + this.count + " / " + arr.length + "]");
+		return idx;
+	}
 
-		int c = b + 1;
-		int d = arr.length - 1;
+	private int binarySearch(int[] arr, int key, int prev, int low, int high) {
+		this.count++;
+		if (low <= high) {
+			int mid = (low + high) / 2;
+			int midVal = arr[mid];
 
-		int count = 0;
-		while (true) { // improve
-			int lMid = (a + b) / 2;
-			int rMid = (c + d) / 2;
+			if (key < midVal) {
+				int nextHigh = mid - 1;
+				int nextMid = (low + nextHigh) / 2;
+				int nextVal = arr[nextMid];
 
-			int lMidVal = arr[lMid];
-			int rMidVal = arr[rMid];
-
-			System.out.println(
-					"[" + a + " .. " + lMid + " .. " + b + "] | " + "[" + c + " .. " + rMid + " .. " + d + "]");
-
-			if (lMidVal == key) {
-				System.out.println("found in left at " + lMid);
-				System.out.println();
-				return lMid;
-			}
-			if (rMidVal == key) {
-				System.out.println("found in right at " + rMid);
-				System.out.println();
-				return rMid;
-			}
-
-			/* search 'left' array */
-			if (a <= b) {
-				if (lMidVal < key) {
-					a = lMid + 1;
-					if (lMidVal > rMidVal && c >= d) { // verify that
-						d = arr.length - 1;
-						c = ((arr.length - 1) / 2 + d) / 2;
-					}
-				} else if (lMidVal > key) {
-					b = lMid - 1;
-					if (c <= d && lMidVal < rMidVal) {
-						c = rMid + 1;
-						rMid = (c + d) / 2;
-						rMidVal = arr[rMid];
-					}
+				if (midVal < nextVal) {
+					low = nextMid + 1;
 				}
-			}
+				return binarySearch(arr, key, midVal, low, mid - 1);
+			} else if (key > midVal) {
+				int nextLow = mid + 1;
+				int nextMid = (nextLow + high) / 2;
+				int nextVal = arr[nextMid];
 
-			/* search 'right' array */
-			if (c <= d) {
-				if (rMidVal < key) {
-					c = rMid + 1;
-					if (rMidVal > lMidVal && a >= b) { // verify that
-						a = 0;
-						b = b / 2;
-					}
-				} else if (rMidVal > key) {
-					d = rMid - 1;
-					if (a <= b && rMidVal < lMidVal) {
-						a = lMid + 1;
-					}
+				if (midVal > nextVal) {
+					high = nextMid - 1;
 				}
+				return binarySearch(arr, key, midVal, mid + 1, high);
 			}
+			return mid;
+		} else {
+			int mid = (arr.length - 1) / 2;
 
-			count++;
-			if (count == arr.length - 1) {
-				return -1;
+			if (low == arr.length) {
+				return binarySearch(arr, key, prev, 0, mid - 1);
+			} else if (high == -1) {
+				return binarySearch(arr, key, prev, mid + 1, arr.length - 1);
+			} else if (low == mid) {
+				return binarySearch(arr, key, prev, 0, high / 2);
+			} else if (high == mid) {
+				return binarySearch(arr, key, prev, (mid + arr.length - 1) / 2, arr.length - 1);
 			}
 		}
+
+		return -1;
 	}
 }

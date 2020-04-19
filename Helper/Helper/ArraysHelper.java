@@ -20,12 +20,12 @@ public class ArraysHelper {
 		return arr;
 	}
 
-	public static int[] getRandomSortedArrayWithUniqueValues(final int length) {
-		int[] arr = getRandomArray(length);
-		Arrays.sort(arr);
-
-		return arr;
-	}
+//	public static int[] getRandomSortedArrayWithUniqueValues(final int length) {
+//		int[] arr = getRandomArray(length);
+//		Arrays.sort(arr);
+//
+//		return arr;
+//	}
 
 	public static int[] rotateRandomly(int[] arr) {
 		int[] rotated = new int[arr.length];
