@@ -31,11 +31,13 @@ class SearchInSortedArray {
 
 			if (key < midVal) {
 				int nextHigh = mid - 1;
-				int nextMid = (low + nextHigh) / 2;
-				int nextVal = arr[nextMid];
+				if (nextHigh >= 0) {
+					int nextMid = (low + nextHigh) / 2;
+					int nextVal = arr[nextMid];
 
-				if (midVal < nextVal) {
-					low = nextMid + 1;
+					if (midVal < nextVal) {
+						low = nextMid + 1;
+					}
 				}
 				return binarySearch(arr, key, midVal, low, mid - 1);
 			} else if (key > midVal) {
@@ -59,7 +61,10 @@ class SearchInSortedArray {
 			} else if (low == mid) {
 				return binarySearch(arr, key, prev, 0, high / 2);
 			} else if (high == mid) {
-				return binarySearch(arr, key, prev, (mid + arr.length - 1) / 2, arr.length - 1);
+				System.out.println(
+						"key: " + key + ", mid:" + mid + ", prev: " + prev + ", high: " + high + ", low: " + low);
+//				return -1;
+				return binarySearch(arr, key, prev, mid + 1, arr.length - 1);
 			}
 		}
 
