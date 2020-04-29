@@ -11,57 +11,66 @@ import Helper.Listy;
  */
 public class SortedSearchNoSize {
 	public static int sortedSearchNoSize(Listy list, int x) {
-		if (list == null) {
+		if (list == null || x < 1) {
 			return -1;
 		}
 
-		int low = 0;
-		int high = 1;
+		int size = 0;
+		int outOfRange = 1;
 
 		/* Find out of range index */
-		while (list.elementAt(high) != -1) {
-			low = high;
-			high = high * 2;
+		while (list.elementAt(outOfRange) != -1) {
+			size = outOfRange;
+			outOfRange = outOfRange * 2;
 		}
 
 		/* Find last index */
-		while (low <= high) {
-			int mid = (low + high) / 2;
+		while (size <= outOfRange) {
+			int mid = (size + outOfRange) / 2;
 			int midValue = list.elementAt(mid);
 
 			if (midValue == -1) {
-				high = mid - 1;
+				outOfRange = mid - 1;
 			} else {
-				low = mid + 1;
+				size = mid + 1;
 			}
 		}
 
-		return binarySearch(list, x, 0, low - 1);
+		int lastIndex = size - 1;
+		boolean ascendingOrder = list.elementAt(0) < list.elementAt(lastIndex);
+
+		return ascendingOrder ? binarySearchAscending(list, x, 0, lastIndex)
+				: binarySearchDescending(list, x, 0, lastIndex);
 	}
 
-	private static int binarySearch(Listy list, int x, int low, int high) {
-		boolean inAscendingOrder = list.elementAt(low) <= list.elementAt(high);
-
+	private static int binarySearchAscending(Listy list, int x, int low, int high) {
 		while (low <= high) {
 			int mid = (low + high) / 2;
 			int midValue = list.elementAt(mid);
 
-			if (inAscendingOrder) {
-				if (x < midValue) {
-					high = mid - 1;
-				} else if (x > midValue) {
-					low = mid + 1;
-				} else {
-					return mid;
-				}
+			if (x < midValue) {
+				high = mid - 1;
+			} else if (x > midValue) {
+				low = mid + 1;
 			} else {
-				if (x < midValue) {
-					low = mid + 1;
-				} else if (x > midValue) {
-					high = mid - 1;
-				} else {
-					return mid;
-				}
+				return mid;
+			}
+		}
+
+		return -1;
+	}
+
+	private static int binarySearchDescending(Listy list, int x, int low, int high) {
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			int midValue = list.elementAt(mid);
+
+			if (x > midValue) {
+				high = mid - 1;
+			} else if (x < midValue) {
+				low = mid + 1;
+			} else {
+				return mid;
 			}
 		}
 

@@ -15,7 +15,7 @@ public class SortedSearchNoSizeTest {
 	public void sortedSearchNoSizeTest() {
 		final int MAX_LENGTH = 20;
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 20000; i++) {
 			ArrayList<Integer> list = getList(1 + (int) (Math.random() * MAX_LENGTH));
 
 			if (i % 2 == 0) {
@@ -27,7 +27,9 @@ public class SortedSearchNoSizeTest {
 			int firstIndex = list.indexOf(value);
 			int lastIndex = list.lastIndexOf(value);
 
-			System.out.println(list + ".indexOf(" + value + ") = " + index);
+			if (!(firstIndex <= index && index <= lastIndex)) {
+				System.out.println(list + ".indexOf(" + value + ") = " + index);
+			}
 			assertTrue(firstIndex <= index && index <= lastIndex);
 		}
 	}
