@@ -1,0 +1,5 @@
+10.6 Sort Big File
+Imagine you have a 20 GB file with one string per line. Explain how you would sort the file.
+
+I would sort equal chunks of the file (for example 10x2 GB) using quick,
+and then merge them by pairs using merge sort.
