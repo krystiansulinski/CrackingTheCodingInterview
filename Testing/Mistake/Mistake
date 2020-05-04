@@ -1,0 +1,18 @@
+11.1 Mistake
+Find the mistake(s) in the following code:
+
+unsigned int i;
+for (i = 100; i >= 0; --i)
+	printf("%d\n", i);
+	
+
+My Answer:
+1. Java doesn't have 'unsigned int' type.
+2. 'i' should be declared inside the for loop if it's not used on the outside of its scope.
+3. Missing curly brackets around the for loop.
+4. '--i' could be changed to 'i = i - 1' for code readability. 
+
+Book Answer:
+1. 'unsigned int' is, by definition, always greater than or equal to zero,
+so the for loop condition will always be true, and it will loop infinitely
+2. use %u in place of %d
