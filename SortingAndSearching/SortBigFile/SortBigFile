@@ -1,5 +1,13 @@
 10.6 Sort Big File
 Imagine you have a 20 GB file with one string per line. Explain how you would sort the file.
 
-I would sort equal chunks of the file (for example 10x2 GB) using quick,
-and then merge them by pairs using merge sort.
+It depends what the strings consist of, how long they are, whether there are duplicates,
+how they are initially ordered as well as space and time limitations.
+ 
+For example, if they were made of English lower case letters only
+with relatively equal chunks of strings started with same letters,
+we could create buckets for them (for example 52 buckets such as: [aa-am], [am-az] etc.),
+sort them one by one on different threads (for example using QuickSort),
+and merge at the end.
+
+The trick is to figure out how to best split the file.
