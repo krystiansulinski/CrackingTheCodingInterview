@@ -1,0 +1,20 @@
+11.3 Chess Test
+We have the following method used in a chess game:
+boolean canMoveTo(int x, int y). This method is part of the Piece class
+and returns whether or not the piece can move to position (x, y).
+Explain how you would test this method.
+
+My answer:
+I would start by testing all possible moves for each chess piece
+(pawn, rook, knight, bishop, queen, king)
+from the middle (D4 or E4) of an empty chessboard.
+
+I would then check all possible moves for each chess piece with white and black sets
+at the start of the game.
+
+I would then repeat it for a randomly generated chess board state.
+
+I would see if the method returns false for negative numbers or
+greater than 8 (chess are set on an 8x8 grid).
+
+A good case would also be to test against moving to the current position. 
