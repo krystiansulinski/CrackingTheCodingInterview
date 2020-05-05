@@ -1,0 +1,20 @@
+11.2 Random Crashes
+You are given the source to an application which crashes when it is run.
+After running it ten times in a debugger, you find it never crashes in the same place.
+The application is single threaded, and uses only the C standard library.
+What programming errors could be causing this crash? How would you test each one?
+
+My Answer:
+I would check for memory leaks to see if all objects are destructed at the right time.
+I would also examine the usage of pointers to see if they point to the right addresses.
+The program logic should be also looked at as well all inputs.
+I would test the program on other machine to make sure it's not a single machine's fault.
+
+Book Answer:
+1. Random Variable
+2. Uninitialized Variable
+3. Memory Leak
+4. External Dependencies
+
+We should learn as much as we can about the program and start isolating working parts of it 
+[...].
