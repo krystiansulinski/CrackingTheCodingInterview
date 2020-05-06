@@ -2,3 +2,19 @@
 How would you load test a webpage without using any test tools?
 
 Answer:
+I would ask many people at the organisation to use the webpage at the same time.
+Alternatively, I would hire a 3-rd party to perform the load tests.
+Depending on the website, we could generate peak times by creating an advert 
+at some social network website and creating a discount/occasion tied to a specific time
+so that potential users would be treated as test tools.
+That'd be risky for the company reputation though.
+
+We could also do it the software-way, by changing API calls to repeat X number of times
+for just one user and slowing down Internet connection.
+
+Book answer:
+We can create our own tools. For example, we could simulate
+concurrent users by creating thousands of virtual users.
+We would write a multi-threaded program with thousands of threads, where each
+thread acts as a real-world user loading the page. For each user,
+we would programmatically measure response time, data I/O, etc.
