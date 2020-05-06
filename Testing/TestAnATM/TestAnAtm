@@ -1,2 +1,22 @@
 11.5 Test an ATM
 How would you test an ATM in a distributed banking system?
+
+Questions:
+	- What type of an ATM?
+		- cash withdrawal, notes and coin deposit, cardless transactions...
+	- Where would it be situated?
+		- bank branches, on the streets, in shopping malls, undercover...
+	- Who are the users?
+	- How often the ATM are used throughout a day/year?
+	- What are the possible transactions and currencies?
+	- How is it built?
+	- Do we test just the software, or hardware and the ATM's physical and mechanical
+	  conditions as well?
+
+I would do some manual testing using the ATM while being
+connected to the system and monitoring the transactions I make.
+
+We could just pretend to be the ATM's API to automate complex test scenarios.
+We would have to test some (almost) concurrent transactions to see how it behaves.
+We would need to tests whether the ATM is reliable (still performs as expected
+when the banking system is under heavy load). 

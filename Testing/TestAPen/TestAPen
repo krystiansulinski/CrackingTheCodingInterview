@@ -1,3 +1,27 @@
 11.5 Test a Pen
 How would you test a pen?
 
+I would ask:
+	- Who is the user?
+		- Could be a student, engineer, writer, doctor, astronaut, diver, Indiana Jones, kids,
+		  elderly people, etc.
+	- How the user is going to use it?
+		- Could write student notes, draft sketches, paint, used under water, 
+		  in extreme temperatures or pressures, to throw into a target, as a one-time pen
+		  by during a pandemic or occasionally over long periods of time, etc. Could be used
+		  to open boxes, as a 007 gadget device...
+
+
+Depends on that, we could use some tools to generate the user.
+For example, to simulate a student, we would give free pens to students
+and ask for quick feedback in return after some time.
+
+If the pen is for general public, we could just give away lots of pens to random people,
+ask them to write something and give immediate feedback. We could create a lottery for all pens
+where one of the people that give feedback after some time would win some prize.
+
+If we don't have time, we could attach the pen to some machine, like a 3D printer
+and simulate hours of writing. We would also throw it so some machine,
+like a sophisticated washing machine to simulate unstable conditions.
+
+We could spill milk and tea on it, step on it, throw from some distance.
