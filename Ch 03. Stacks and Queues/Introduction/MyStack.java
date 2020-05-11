@@ -2,42 +2,45 @@ package Introduction;
 
 import java.util.EmptyStackException;
 
-public class MyStack<Integer> {
-	private StackNode<Integer> top;
+public class MyStack<T> {
+	private StackNode<T> top;
 
-	private Integer getMin() {
-		StackNode<Integer> p = top;
-		Integer min = p.data;
+	private T getMin() {
+		StackNode<T> p = top;
+		T min = p.data;
 
 		for (int i = 1; i < this.size(); i++) {
 			p = p.next;
-			if ((int) p.data < (int) min) {
+			if (((Integer) p.data).compareTo((Integer) min) < 0) {
 				min = p.data;
 			}
 		}
+
 		return min;
 	}
 
 	private int size;
 
-	public Integer pop() {
+	public T pop() {
 		if (top == null) {
 			throw new EmptyStackException();
 		}
-		Integer item = top.data;
+
+		T item = top.data;
 		top = top.next;
 		this.size--;
+
 		return item;
 	}
 
-	public void push(Integer item) {
-		StackNode<Integer> t = new StackNode<>(item);
+	public void push(T item) {
+		StackNode<T> t = new StackNode<>(item);
 		t.next = top;
 		top = t;
 		this.size++;
 	}
 
-	public Integer peek() {
+	public T peek() {
 		if (top == null) {
 			throw new EmptyStackException();
 		}
@@ -53,7 +56,7 @@ public class MyStack<Integer> {
 	}
 	
 	public void sort() {
-		MyStack<Integer> tmp = new MyStack<>();
+		MyStack<T> tmp = new MyStack<>();
 		while (this.size() != 0) {
 			tmp.push(this.popMin());
 		}
@@ -63,17 +66,19 @@ public class MyStack<Integer> {
 		}
 	}
 
-	public Integer popMin() {
+	public T popMin() {
 		if (this.size() == 1) {
 			return this.pop();
 		}
 
-		Integer min = getMin();
+		T min = getMin();
 		if (this.peek() == min) {
 			return this.pop();
 		}
-		StackNode<Integer> previous = top;
-		StackNode<Integer> current = previous.next;
+
+		StackNode<T> previous = top;
+		StackNode<T> current = previous.next;
+
 		while (min != current.data) {
 			previous = current;
 			current = current.next;
@@ -81,12 +86,13 @@ public class MyStack<Integer> {
 
 		previous.next = current.next;
 		this.size--;
+
 		return min;
 	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		StackNode<Integer> t = top;
+		StackNode<T> t = top;
 		String arrow = " -> ";
 
 		while (t != null) {
@@ -95,14 +101,15 @@ public class MyStack<Integer> {
 		}
 
 		sb.delete(sb.length() - arrow.length(), sb.length());
+
 		return sb.toString();
 	}
 
-	public class StackNode<Integer> {
-		private final Integer data;
-		private StackNode<Integer> next;
+	public class StackNode<T> {
+		private final T data;
+		private StackNode<T> next;
 
-		public StackNode(Integer data) {
+		public StackNode(T data) {
 			this.data = data;
 		}
 
