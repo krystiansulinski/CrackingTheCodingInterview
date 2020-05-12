@@ -1,58 +1,34 @@
 package Introduction;
 
 public class MyIntegerArrayList {
-    private final int DEFAULT_SIZE = 10;
-    private int size = 0;
+    private final int DEFAULT_CAPACITY = 10;
+    private int size;
+    private int capacity;
     private int[] array;
 
     MyIntegerArrayList() {
-        this.array = new int[DEFAULT_SIZE];
+        this.size = 0;
+        this.capacity = this.DEFAULT_CAPACITY;
+        this.array = new int[this.DEFAULT_CAPACITY];
     }
 
     MyIntegerArrayList(int size) {
+        this.size = size;
+        this.capacity = size;
         this.array = new int[size];
     }
 
-    private void resize(int factor) {
-        if (factor < 2) {
-            return;
-        }
+    MyIntegerArrayList(int[] values) {
+        this(values.length);
 
-        if (array.length == size) {
-            int[] newArray = new int[array.length * factor];
-            System.arraycopy(array, 0, newArray, 0, array.length);
-            this.array = newArray;
+        for (int i = 0; i < this.size(); i++) {
+            this.array[i] = values[i];
         }
     }
-
-    private void doubleSize() {
-        resize(2);
-    }
-
-    public int size() {
-        return this.size;
-    }
-
-    public boolean isEmpty() {
-        return this.size == 0;
-    }
-
-    public boolean contains(int value) {
-        for (int element : this.array) {
-            if (element == value) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-//    public Object[] toArray() {
-//        return new Object[0];
-//    }
 
     public boolean add(int element) {
-        if (array.length == size) {
-            this.doubleSize();
+        if (this.size() == internalSize()) {
+            doubleSize();
         }
 
         array[size] = element;
@@ -61,73 +37,120 @@ public class MyIntegerArrayList {
         return true;
     }
 
-    void add(int index, int element) {
-        if (index < 0 || index >= size) {
-            throw new IllegalArgumentException();
-        }
+    public void add(int index, int element) {
+        this.throwIfIndexOufOfBounds(index);
         array[index] = element;
     }
 
-    public boolean removeIndex(int index) {
-        if (index < 0 || index >= size) {
-            throw new IllegalArgumentException();
+    public boolean addAll(int[] values) {
+        int quotient = values.length / internalSize();
+        int remainder = values.length % internalSize() != 0 ? 1 : 0;
+
+        if (!increaseSize(quotient + remainder)) {
+            this.size = this.size + values.length;
         }
 
-        int[] newArray = new int[this.array.length - 1];
-        System.arraycopy(this.array, 0, newArray, 0, index);
-        System.arraycopy(this.array, index + 1, newArray, index, newArray.length - index);
+        for (int i = 0; i < values.length; i++) {
+            array[i] = values[i];
+        }
+
+        return true;
+    }
+
+    public int get(int index) {
+        this.throwIfIndexOufOfBounds(index);
+        return this.array[index];
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    public boolean removeIndex(int index) {
+        this.throwIfIndexOufOfBounds(index);
+
+        int j = 0;
+        for (int i = 0; i < this.size(); i++) {
+            if (i >= index) {
+                j = i + 1;
+            }
+            this.array[i] = this.array[j];
+        }
+
+        this.size = array.length - 1;
+        this.capacity = array.length - 1;
 
         return true;
     }
 
     public boolean removeValue(int value) {
-        for (int i = 0; i < this.size(); i++) {
-            if (this.array[i] == value) {
-                return this.removeIndex(i);
+        for (int i = 0; i < internalSize(); i++) {
+            if (array[i] == value) {
+                return removeIndex(i);
             }
-        }
-
-        return false;
-    }
-
-    public boolean addAll(int[] values) {
-        int quotient = values.length / this.size();
-        int remainder = values.length % this.size() != 0 ? 1 : 0;
-
-        this.resize(quotient + remainder);
-
-        for (int i = 0; i < this.size(); i++) {
-            this.array[i] = values[i];
         }
 
         return false;
     }
 
     public void clear() {
-        this.array = new int[DEFAULT_SIZE];
-    }
-
-    public boolean retainAll(int[] values) {
-        return false;
+        this.array = new int[DEFAULT_CAPACITY];
+        this.size = 0;
     }
 
     public boolean removeAll(int[] values) {
         for (int i = 0; i < values.length; i++) {
-            this.removeValue(values[i]);
+            removeValue(values[i]);
         }
         return true;
     }
 
+    public boolean contains(int value) {
+        for (int element : array) {
+            if (element == value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean containsAll(int[] values) {
         for (int value : values) {
-            if (!this.contains(value)) {
+            if (!contains(value)) {
                 return false;
             }
         }
         return true;
     }
 
-    public Object[] toArray(Object[] a) {
-        return new Object[0];
+    private int internalSize() {
+        return array.length;
+    }
+
+    private void throwIfIndexOufOfBounds(int index) {
+        if (index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException("Index out of boundaries");
+        }
+    }
+
+    private boolean increaseSize(int factor) {
+        if (factor < 2) {
+            return false;
+        }
+
+        int[] newArray = new int[this.array.length * factor];
+        this.size = this.array.length * factor;
+        this.capacity = this.array.length * factor;
+        System.arraycopy(this.array, 0, newArray, 0, this.array.length);
+        this.array = newArray;
+        return true;
+    }
+
+    private void doubleSize() {
+        this.increaseSize(2);
     }
 }
