@@ -3,18 +3,15 @@ package Introduction;
 public class MyIntegerArrayList {
     private final int DEFAULT_CAPACITY = 10;
     private int size;
-    private int capacity;
     private int[] array;
 
     MyIntegerArrayList() {
         this.size = 0;
-        this.capacity = this.DEFAULT_CAPACITY;
         this.array = new int[this.DEFAULT_CAPACITY];
     }
 
     MyIntegerArrayList(int size) {
         this.size = size;
-        this.capacity = size;
         this.array = new int[size];
     }
 
@@ -82,7 +79,6 @@ public class MyIntegerArrayList {
         }
 
         this.size = array.length - 1;
-        this.capacity = array.length - 1;
 
         return true;
     }
@@ -144,7 +140,6 @@ public class MyIntegerArrayList {
 
         int[] newArray = new int[this.array.length * factor];
         this.size = this.array.length * factor;
-        this.capacity = this.array.length * factor;
         System.arraycopy(this.array, 0, newArray, 0, this.array.length);
         this.array = newArray;
         return true;
