@@ -6,34 +6,45 @@ of repeated characters. For example, the string aabcccccaaa would became a2b1c5a
 the original string. You can assume the string has only uppercase and lowercase letters (a-z);
  */
 public class StringCompression {
-    public static String stringCompression(String s) {
-        if (s.isEmpty()) {
-            return s;
+    public static String stringCompression(String str) {
+        if (!hasOnlyEnglishCharacters(str)) {
+            return str;
         }
 
-        StringBuilder sb = new StringBuilder();
-        int count = 0;
+        StringBuilder compressed = new StringBuilder();
+        int countConsecutive = 0;
+        int strLength = str.length();
 
-        for (int i = 0; i < s.length(); i++) {
-            count++;
-            char current = s.charAt(i);
+        for (int i = 0; i < strLength; i++) {
+            countConsecutive++;
+            char current = str.charAt(i);
+            boolean isLastIndex = (i + 1 >= strLength);
+            boolean nextCharIsDifferent = !isLastIndex && (current != str.charAt(i + 1));
 
-            if (!('a' <= current && current <= 'z' || 'A' <= current && current <= 'Z')) {
-                throw new IllegalArgumentException(
-                        "This method accepts only uppercase and lowercase letters (a-z), but found: " + current
-                );
+            if (isLastIndex || nextCharIsDifferent) {
+                compressed.append(current);
+                compressed.append(countConsecutive);
+                countConsecutive = 0;
             }
 
-            if (i == s.length() - 1 || current != s.charAt(i + 1)) {
-                sb.append(current);
-                sb.append(count);
-                count = 0;
+            if (strLength <= compressed.length()) {
+                return str;
             }
         }
 
-        if (s.length() < sb.length()) {
-            return s;
+        return compressed.toString();
+    }
+
+    private static boolean hasOnlyEnglishCharacters(String str) {
+        for (char c : str.toCharArray()) {
+            boolean isSmall = 'a' <= c && c <= 'z';
+            boolean isCapital = 'A' <= c && c <= 'Z';
+            boolean isNotEnglishLetter = !(isSmall || isCapital);
+
+            if (isNotEnglishLetter) {
+                return false;
+            }
         }
-        return sb.toString();
+        return true;
     }
 }
