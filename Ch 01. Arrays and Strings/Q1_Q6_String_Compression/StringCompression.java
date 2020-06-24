@@ -13,21 +13,17 @@ public class StringCompression {
 
         StringBuilder compressed = new StringBuilder();
         int countConsecutive = 0;
-        int strLength = str.length();
 
-        for (int i = 0; i < strLength; i++) {
+        for (int i = 0; i < str.length(); i++) {
             countConsecutive++;
-            char current = str.charAt(i);
-            boolean isLastIndex = (i + 1 >= strLength);
-            boolean nextCharIsDifferent = !isLastIndex && (current != str.charAt(i + 1));
 
-            if (isLastIndex || nextCharIsDifferent) {
-                compressed.append(current);
+            if (i + 1 >= str.length() || str.charAt(i) != str.charAt(i + 1)) {
+                compressed.append(str.charAt(i));
                 compressed.append(countConsecutive);
                 countConsecutive = 0;
             }
 
-            if (strLength <= compressed.length()) {
+            if (str.length() <= compressed.length()) {
                 return str;
             }
         }
@@ -39,9 +35,9 @@ public class StringCompression {
         for (char c : str.toCharArray()) {
             boolean isSmall = 'a' <= c && c <= 'z';
             boolean isCapital = 'A' <= c && c <= 'Z';
-            boolean isNotEnglishLetter = !(isSmall || isCapital);
+            boolean isEnglishLetter = isSmall || isCapital;
 
-            if (isNotEnglishLetter) {
+            if (!isEnglishLetter) {
                 return false;
             }
         }
