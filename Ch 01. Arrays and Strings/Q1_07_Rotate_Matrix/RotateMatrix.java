@@ -40,4 +40,28 @@ public class RotateMatrix {
             rotation++;
         }
     }
+
+    public void rotate(int[][] arr, int row, int col) {
+        int N = arr.length;
+        for (int i = 0; i < 4; i++) {
+            int rowTo = row;
+            int colTo = col;
+            boolean lastRow = rowTo == N - 1;
+            boolean lastCol = colTo == N - 1;
+
+            for (int j = 0; j < N; j++) {
+                if (colTo < N - 1) {
+                    colTo++;
+                } else if (rowTo < N - 1) {
+                    rowTo++;
+                } else if (lastCol && !lastRow) {
+                    rowTo++;
+                } else if (lastRow && !lastCol) {
+                    rowTo--;
+                } else if (lastCol && lastRow) {
+                    colTo--;
+                }
+            }
+        }
+    }
 }
