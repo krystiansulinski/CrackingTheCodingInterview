@@ -1,3 +1,7 @@
+/* 1.7 Rotate Matrix
+ * Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes,
+ * write a method to rotate the image by 90 degrees. Can you do this in place?
+ */
 package Q1_07_Rotate_Matrix;
 
 public class RotateMatrix {
@@ -9,59 +13,54 @@ public class RotateMatrix {
             }
         }
 
-        int rotation = 0;
-        int rowOld = 0;
-        int colOld = 0;
-        while (rotation < N) {
-            int increments = 0;
-            int row = rowOld;
-            int col = colOld;
-            boolean increase = row != N - 1 && col != N - 1;
-            while (increments < N) {
-                if (increase) {
-                    if (row < N - 1) {
-                        row++;
-                    } else if (col < N - 1) {
-                        col++;
-                    }
-                } else {
-                    if (row > 0) {
-                        row--;
-                    } else if (col > 0) {
-                        col--;
-                    }
-                }
-                increments++;
-            }
-            // TODO: revisit temp
-            int temp = arr[row][col];
-            arr[row][col] = arr[rowOld][colOld];
-
-            rotation++;
+        while (true) {
         }
     }
 
-    public void rotate(int[][] arr, int row, int col) {
+    public void rotate(int[][] arr, int rowIdxFrom, int colIdxFrom) {
         int N = arr.length;
-        for (int i = 0; i < 4; i++) {
-            int rowTo = row;
-            int colTo = col;
-            boolean lastRow = rowTo == N - 1;
-            boolean lastCol = colTo == N - 1;
+        int maxIndex = N - 1;
 
-            for (int j = 0; j < N; j++) {
-                if (colTo < N - 1) {
-                    colTo++;
-                } else if (rowTo < N - 1) {
-                    rowTo++;
-                } else if (lastCol && !lastRow) {
-                    rowTo++;
-                } else if (lastRow && !lastCol) {
-                    rowTo--;
-                } else if (lastCol && lastRow) {
-                    colTo--;
+        int temp;
+        for (int i = 0; i < 4; i++) {
+            int value = arr[]
+            int rowIdxTo = rowIdxFrom;
+            int colIdxTo = colIdxFrom;
+            boolean isLastRow = rowIdxTo == maxIndex;
+            boolean isLastCol = colIdxTo == maxIndex;
+
+            for (int j = 0; j < maxIndex; j++) {
+                if (colIdxTo < maxIndex) {
+                    colIdxTo++;
+                } else if (rowIdxTo < maxIndex) {
+                    rowIdxTo++;
+                } else if (isLastRow && isLastCol) {
+                    colIdxTo--;
+                } else if (isLastRow && !isLastCol) {
+                    rowIdxTo--;
+                } else if (!isLastRow && isLastCol) {
+                    rowIdxTo++;
                 }
             }
+
+            temp = arr[rowIdxTo][colIdxTo];
+            arr[rowIdxTo][colIdxTo] = arr[rowIdxFrom][colIdxFrom];
         }
+    }
+
+    public int[] getNextIndeces(int rowIdx, int colIdx, int length) {
+        int[][] indeces = new int[1][1];
+        int lastIndex = length - 1;
+
+        boolean reachLastRow = rowIdx == lastIndex;
+        boolean reachedLastCol = colIdx == lastIndex;
+
+        for (int i = 0; i < lastIndex; i++) {
+            for (int j = 0; j < lastIndex; j++) {
+
+            }
+        }
+
+        return indeces;
     }
 }
