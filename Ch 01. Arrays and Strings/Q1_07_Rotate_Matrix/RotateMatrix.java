@@ -5,16 +5,42 @@
 package Q1_07_Rotate_Matrix;
 
 public class RotateMatrix {
-    public static void rotateMarix(int[][] arr) {
-        final int N = arr.length;
-        for (int i = 0; i < N; i++) {
-            if (arr[i].length != N) {
-                return;
+    public static void rotateMatrix(final int[][] arr, final int N) {
+        // assume arr is NxN
+        // assume values in arr are different
+
+        int[][] rotated = new int[N][N];
+        boolean nIsOdd = N % 2 == 1;
+
+        for (int col = 0; col < N; col++) {
+            if (nIsOdd && N / 2 - 1 == col) {
+                rotated = swapMid(arr, rotated, N, col);
+            } else {
+                rotated = swap(arr, rotated, N, col);
             }
         }
 
-        while (true) {
+    }
+
+    private static int[][] swapMid(final int[][] arr, final int[][] rotated, final int N, final int col) {
+        int[][] swapped = rotated.clone();
+
+        for (int row = 0; row < N; row++) {
+            swapped[row][col] = arr[col][row];
         }
+
+        return swapped;
+    }
+
+    private static int[][] swap(final int[][] arr, final int[][] rotated, final int N, final int col) {
+        int[][] swapped = rotated.clone();
+
+        for (int row = 0; row < N; row++) {
+            // to be continued
+            swapped[row][col] = rotated
+        }
+
+        return swapped;
     }
 
     public void rotate(int[][] arr, int rowIdxFrom, int colIdxFrom) {
@@ -23,7 +49,7 @@ public class RotateMatrix {
 
         int temp;
         for (int i = 0; i < 4; i++) {
-            int value = arr[]
+            int value = arr[i];
             int rowIdxTo = rowIdxFrom;
             int colIdxTo = colIdxFrom;
             boolean isLastRow = rowIdxTo == maxIndex;
