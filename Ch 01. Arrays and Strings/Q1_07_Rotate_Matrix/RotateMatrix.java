@@ -19,4 +19,22 @@ public class RotateMatrix {
 
         return rotated;
     }
+
+    public static int[][] rotateRightBy90DegreesInPlace(final int[][] arr) {
+        // assume arr is NxN
+        // assume values in arr are different
+        final int N = arr.length;
+
+        int pos = 0;
+        for (int col = 0; col < N / 2; col++) {
+            for (int row = 0; row < N; row++) {
+                final int temp = arr[N - pos][row];
+                arr[col][N - pos] = arr[row][col];
+                // continue ...
+            }
+            pos++;
+        }
+
+        return arr;
+    }
 }
