@@ -2,6 +2,8 @@ package Q1_07_Rotate_Matrix;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertArrayEquals;
 
 public class RotateMatrixTest {
@@ -59,18 +61,27 @@ public class RotateMatrixTest {
     @Test
     public void rotate2DMatrixInPlace() {
         RotateMatrix.rotateRightInPlace(arr2D);
+        System.out.println(Arrays.deepToString(rotated2D));
+        System.out.println(Arrays.deepToString(arr2D));
+
         assertArrayEquals(rotated2D, arr2D);
     }
 
     @Test
     public void rotate3DMatrixInPlace() {
         RotateMatrix.rotateRightInPlace(arr3D);
+        System.out.println(Arrays.deepToString(rotated3D));
+        System.out.println(Arrays.deepToString(arr3D));
+
         assertArrayEquals(rotated3D, arr3D);
     }
 
     @Test
     public void rotate4DMatrixInPlace() {
         RotateMatrix.rotateRightInPlace(arr4D);
+        System.out.println(Arrays.deepToString(rotated4D));
+        System.out.println(Arrays.deepToString(arr4D));
+
         assertArrayEquals(rotated4D, arr4D);
     }
 }
