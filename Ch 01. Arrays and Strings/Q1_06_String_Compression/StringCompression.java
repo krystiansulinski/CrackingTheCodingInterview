@@ -1,4 +1,4 @@
-package Q1_Q6_String_Compression;
+package Q1_06_String_Compression;
 
 /* 1.6 String Compression: Implement a method to perform basic string compression using the counts
 of repeated characters. For example, the string aabcccccaaa would became a2b1c5a3. If the

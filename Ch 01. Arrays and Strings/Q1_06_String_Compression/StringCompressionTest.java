@@ -1,4 +1,4 @@
-package Q1_Q6_String_Compression;
+package Q1_06_String_Compression;
 
 import org.junit.Test;
 
