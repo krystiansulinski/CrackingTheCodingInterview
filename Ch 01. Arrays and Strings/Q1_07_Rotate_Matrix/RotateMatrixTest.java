@@ -2,8 +2,6 @@ package Q1_07_Rotate_Matrix;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.assertArrayEquals;
 
 public class RotateMatrixTest {
@@ -61,7 +59,6 @@ public class RotateMatrixTest {
     @Test
     public void rotate2DMatrixInPlace() {
         System.out.println(printMatrix(arr2D));
-        System.out.println(printMatrix(rotated2D));
         RotateMatrix.rotateRightInPlace(arr2D);
         System.out.println(printMatrix(arr2D));
 
@@ -70,9 +67,9 @@ public class RotateMatrixTest {
 
     @Test
     public void rotate3DMatrixInPlace() {
+        System.out.println(printMatrix(arr3D));
         RotateMatrix.rotateRightInPlace(arr3D);
-        System.out.println(Arrays.deepToString(rotated3D));
-        System.out.println(Arrays.deepToString(arr3D));
+        System.out.println(printMatrix(arr3D));
 
         assertArrayEquals(rotated3D, arr3D);
     }
@@ -80,16 +77,14 @@ public class RotateMatrixTest {
     @Test
     public void rotate4DMatrixInPlace() {
         System.out.println(printMatrix(arr4D));
-        System.out.println(printMatrix(rotated4D));
         RotateMatrix.rotateRightInPlace(arr4D);
         System.out.println(printMatrix(arr4D));
-
 
         assertArrayEquals(rotated4D, arr4D);
     }
 
     public String printMatrix(int[][] mat) {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
         for (int row = 0; row < mat.length; row++) {
             for (int col = 0; col < mat[row].length; col++) {

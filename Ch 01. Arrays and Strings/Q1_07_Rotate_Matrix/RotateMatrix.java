@@ -20,48 +20,35 @@ public class RotateMatrix {
         return rotated;
     }
 
-    public static void rotateRightInPlace(int[][] arr) {
-        // assume arr is NxN
-        // assume values in arr are different
-        final int N = arr.length;
-        final int M = N - 1;
+    public static boolean rotateRightInPlace(int[][] matrix) {
+        if (matrix.length == 0 || matrix.length != matrix[0].length) {
+            return false;
+        }
 
-//        for (int col = 0; col < N / 2; col++) {
-//            for (int row = 0; row < N / 2 + 1; row++) {
-//        final int maxIdx = N - 1;
-        for (int row = 0; row < Math.floor(N / 2); row++) {
-            for (int col = 0; col < N; col++) {
-//                int temp = arr[col][maxIdx - row];
-//                arr[col][maxIdx - row] = arr[row][col];
-//                arr[row][col] = temp;
-//
-//                temp = arr[maxIdx - row][maxIdx - col];
-//                arr[maxIdx - row][maxIdx - col] = arr[row][col];
-//                arr[row][col] = temp;
-//
-//                temp = arr[maxIdx - col][row];
-//                arr[maxIdx - col][row] = arr[row][col];
-//                arr[row][col] = temp;
+        final int n = matrix.length;
 
-//                swap(arr, row, col, col, M - row);
-//                swap(arr, row, col, M - row, M - col);
-//                swap(arr, row, col, M - col, row);
+        for (int layer = 0; layer < n / 2; layer++) {
+            final int first = layer;
+            final int last = n - 1 - layer;
+            for (int i = first; i < last; i++) {
+                final int offset = i - first;
 
-                swap(arr, row, col, col, M - row);
-//                swap(arr, row, col, M - row, M - col);
-//                swap(arr, row, col, M - col, row);
+                final int top = matrix[first][i]; // save top
+
+                // left -> top
+                matrix[first][i] = matrix[last - offset][first];
+
+                // bottom -> left
+                matrix[last - offset][first] = matrix[last][last - offset];
+
+                // right -> bottom
+                matrix[last][last - offset] = matrix[i][last];
+
+                // top -> right
+                matrix[i][last] = top;
             }
         }
-    }
 
-    private static void swap(int[][] arr,
-                             final int row,
-                             final int col,
-                             final int newRow,
-                             final int newCol
-    ) {
-        final int temp = arr[newRow][newCol];
-        arr[newRow][newCol] = arr[row][col];
-        arr[row][col] = temp;
+        return true;
     }
 }
