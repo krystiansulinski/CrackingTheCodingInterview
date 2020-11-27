@@ -14,6 +14,7 @@ public class ZeroMatrix {
         final HashSet<Integer> rows = new HashSet<>();
         final HashSet<Integer> cols = new HashSet<>();
 
+        // Test
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix[row].length; col++) {
                 if (matrix[row][col] == 0) {
