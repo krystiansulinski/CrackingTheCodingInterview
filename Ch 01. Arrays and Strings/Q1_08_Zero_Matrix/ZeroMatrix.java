@@ -10,32 +10,52 @@ public class ZeroMatrix {
         if (matrix.length == 0) {
             return false;
         }
-        final HashSet<Integer> columnsToZero = new HashSet<>();
+
+        final HashSet<Integer> rows = new HashSet<>();
+        final HashSet<Integer> cols = new HashSet<>();
 
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix[row].length; col++) {
-                if (columnsToZero.contains(col)) {
-                    matrix[row][col] = 0;
-                }
                 if (matrix[row][col] == 0) {
-                    zeroRow(matrix, row);
-                    columnsToZero.add(col);
+                    rows.add(row);
+                    cols.add(col);
                 }
             }
+        }
+
+        for (final int row : rows) {
+            zeroRow(matrix, row);
+        }
+
+        for (final int col : cols) {
+            zeroCol(matrix, col, rows);
         }
 
         return true;
     }
 
-    public static boolean zeroRow(int[][] matrix, final int row) {
-        if (row < 0 || row >= matrix.length || matrix[row].length < 2) {
-            return false;
+    public static void zeroRow(int[][] matrix, final int row) {
+        if (row < 0 || row >= matrix.length || matrix[row].length == 1) {
+            return;
         }
 
         for (int col = 0; col < matrix[row].length; col++) {
             matrix[row][col] = 0;
         }
+    }
 
-        return true;
+    public static void zeroCol(int[][] matrix, final int col, final HashSet<Integer> zeroedRows) {
+        if (col < 0) {
+            return;
+        }
+
+        for (int row = 0; row < matrix.length; row++) {
+            final int rowLength = matrix[row].length;
+            final boolean isNotZeroRow = !zeroedRows.contains(row);
+
+            if (rowLength > 1 && col < rowLength && isNotZeroRow) {
+                matrix[row][col] = 0;
+            }
+        }
     }
 }

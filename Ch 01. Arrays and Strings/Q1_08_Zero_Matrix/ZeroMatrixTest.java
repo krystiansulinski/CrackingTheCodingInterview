@@ -1,6 +1,5 @@
-package Q1_07_Rotate_Matrix;
+package Q1_08_Zero_Matrix;
 
-import Q1_08_Zero_Matrix.ZeroMatrix;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -13,7 +12,7 @@ public class ZeroMatrixTest {
 
     final int[][] zero2D = {
             {0, 0},
-            {0, 2}
+            {0, 4}
     };
 
     final int[][] arr3D = {
@@ -35,16 +34,28 @@ public class ZeroMatrixTest {
             {13, 14, 15, 0}
     };
 
-    final int[][] rotated4D = {
+    final int[][] zero4D = {
             {0, 0, 0, 0},
-            {14, 10, 6, 0},
-            {15, 11, 7, 0},
-            {16, 12, 8, 0}
+            {0, 6, 7, 0},
+            {0, 10, 11, 0},
+            {0, 0, 0, 0}
     };
 
     @Test
-    public void zeroMatrix() {
+    public void zeroMatrix2D() {
         ZeroMatrix.zeroMatrix(arr2D);
         assertArrayEquals(zero2D, arr2D);
+    }
+
+    @Test
+    public void zeroMatrix3D() {
+        ZeroMatrix.zeroMatrix(arr3D);
+        assertArrayEquals(zero3D, arr3D);
+    }
+
+    @Test
+    public void zeroMatrix4D() {
+        ZeroMatrix.zeroMatrix(arr4D);
+        assertArrayEquals(zero4D, arr4D);
     }
 }
