@@ -5,57 +5,93 @@ import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 
 public class ZeroMatrixTest {
-    final int[][] arr2D = {
+    final int[][] matrix2x1 = {
             {0, 2},
-            {3, 4}
+            {3}
     };
 
-    final int[][] zero2D = {
+    final int[][] matrix2x1Zero = {
             {0, 0},
-            {0, 4}
+            {0}
     };
 
-    final int[][] arr3D = {
+    final int[][] matrix3D = {
             {0, 2, 3},
             {4, 0, 6},
             {7, 8, 0}
     };
 
-    final int[][] zero3D = {
+    final int[][] matrix3DZero = {
             {0, 0, 0},
             {0, 0, 0},
             {0, 0, 0}
     };
 
-    final int[][] arr4D = {
-            {0, 2, 3, 0},
-            {5, 6, 7, 8},
-            {9, 10, 11, 12},
-            {13, 14, 15, 0}
+    final int[][] matrix3x2a = {
+            {0, 2, 3},
+            {0, 1, 6},
+            {0, 8, 2}
     };
 
-    final int[][] zero4D = {
+    final int[][] matrix3x2aZero = {
+            {0, 0, 0},
+            {0, 0, 0},
+            {0, 0, 0}
+    };
+
+    final int[][] matrix3x2b = {
+            {0, 0, 0},
+            {4, 5, 6},
+            {7, 8, 9}
+    };
+
+    final int[][] matrix3x2bZero = {
+            {0, 0, 0},
+            {0, 0, 0},
+            {0, 0, 0}
+    };
+
+    final int[][] matrix4D = {
+            {0, 2, 3, 0},
+            {5, 6},
+            {9, 10, 11, 12},
+            {13, 14, 0}
+    };
+
+    final int[][] matrix4DZero = {
             {0, 0, 0, 0},
-            {0, 6, 7, 0},
-            {0, 10, 11, 0},
-            {0, 0, 0, 0}
+            {0, 6},
+            {0, 10, 0, 0},
+            {0, 0, 0}
     };
 
     @Test
     public void zeroMatrix2D() {
-        ZeroMatrix.zeroMatrix(arr2D);
-        assertArrayEquals(zero2D, arr2D);
+        ZeroMatrix.zeroMatrix(matrix2x1);
+        assertArrayEquals(matrix2x1Zero, matrix2x1);
     }
 
     @Test
     public void zeroMatrix3D() {
-        ZeroMatrix.zeroMatrix(arr3D);
-        assertArrayEquals(zero3D, arr3D);
+        ZeroMatrix.zeroMatrix(matrix3D);
+        assertArrayEquals(matrix3DZero, matrix3D);
+    }
+
+    @Test
+    public void zeroMatrix3x2a() {
+        ZeroMatrix.zeroMatrix(matrix3x2a);
+        assertArrayEquals(matrix3x2aZero, matrix3x2a);
+    }
+
+    @Test
+    public void zeroMatrix3x2b() {
+        ZeroMatrix.zeroMatrix(matrix3x2b);
+        assertArrayEquals(matrix3x2bZero, matrix3x2b);
     }
 
     @Test
     public void zeroMatrix4D() {
-        ZeroMatrix.zeroMatrix(arr4D);
-        assertArrayEquals(zero4D, arr4D);
+        ZeroMatrix.zeroMatrix(matrix4D);
+        assertArrayEquals(matrix4DZero, matrix4D);
     }
 }
