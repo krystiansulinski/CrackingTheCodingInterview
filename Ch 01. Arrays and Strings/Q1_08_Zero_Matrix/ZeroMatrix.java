@@ -20,7 +20,7 @@ public class ZeroMatrix {
         for (int row = 0; row < matrix.length; row++) {
             final int colLength = matrix[row].length;
             int col = 0;
-            for (; col < matrix[row].length; col++) {
+            for (; col < colLength; col++) {
                 if (matrix[row][col] == 0) {
                     rows.put(row, rows.containsKey(row) ? rows.get(row) + 1 : 1);
                     cols.put(col, cols.containsKey(col) ? cols.get(col) + 1 : 1);
