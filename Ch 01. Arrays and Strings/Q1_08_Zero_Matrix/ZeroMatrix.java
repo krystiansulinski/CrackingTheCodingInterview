@@ -8,7 +8,50 @@ import java.util.Map;
 import java.util.Set;
 
 public class ZeroMatrix {
-    public static void zeroMatrix(int[][] matrix) {
+    public static void zeroMatrixInPlace(final int[][] matrix) {
+        markZeroRowsAndCols(matrix);
+        replacedMarkedRowsAndColsWithZeros(matrix);
+    }
+
+    public static void markZeroRowsAndCols(final int[][] matrix) {
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[row].length; col++) {
+                final int value = matrix[row][col];
+                if (value == 0) {
+                    markRow(matrix, row);
+                    markCol(matrix, col);
+                }
+            }
+        }
+    }
+
+    public static void markRow(final int[][] matrix, final int row) {
+        for (int col = 0; col < matrix[row].length; col++) {
+            if (matrix[row][col] != 0) {
+                matrix[row][col] = Integer.MIN_VALUE;
+            }
+        }
+    }
+
+    public static void markCol(final int[][] matrix, final int col) {
+        for (int row = 0; row < matrix.length; row++) {
+            if (col < matrix[row].length && matrix[row][col] != 0) {
+                matrix[row][col] = Integer.MIN_VALUE;
+            }
+        }
+    }
+
+    public static void replacedMarkedRowsAndColsWithZeros(final int[][] matrix) {
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[row].length; col++) {
+                if (matrix[row][col] == Integer.MIN_VALUE) {
+                    matrix[row][col] = 0;
+                }
+            }
+        }
+    }
+
+    public static void zeroMatrix(final int[][] matrix) {
         if (matrix.length == 0) {
             return;
         }
@@ -46,7 +89,7 @@ public class ZeroMatrix {
         zeroCols(matrix, cols.keySet());
     }
 
-    public static void zeroAll(int[][] matrix) {
+    public static void zeroAll(final int[][] matrix) {
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix[row].length; col++) {
                 matrix[row][col] = 0;
@@ -54,7 +97,7 @@ public class ZeroMatrix {
         }
     }
 
-    public static void zeroRows(int[][] matrix, final Set<Integer> rows) {
+    public static void zeroRows(final int[][] matrix, final Set<Integer> rows) {
         for (final int row : rows) {
             for (int col = 0; col < matrix[row].length; col++) {
                 matrix[row][col] = 0;
@@ -62,7 +105,7 @@ public class ZeroMatrix {
         }
     }
 
-    public static void zeroCols(int[][] matrix, final Set<Integer> cols) {
+    public static void zeroCols(final int[][] matrix, final Set<Integer> cols) {
         for (final int col : cols) {
             for (int row = 0; row < matrix.length; row++) {
                 if (col < matrix[row].length) {
