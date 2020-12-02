@@ -124,4 +124,34 @@ public class ZeroMatrixTest {
         ZeroMatrix.zeroMatrixInPlace(matrix4D);
         assertArrayEquals(matrix4DZero, matrix4D);
     }
+
+    @Test
+    public void zeroMatrix2DBookSolution() {
+        ZeroMatrix.setZeros(matrix2x1);
+        assertArrayEquals(matrix2x1Zero, matrix2x1);
+    }
+
+    @Test
+    public void zeroMatrix3DBookSolution() {
+        ZeroMatrix.setZeros(matrix3D);
+        assertArrayEquals(matrix3DZero, matrix3D);
+    }
+
+    @Test
+    public void zeroMatrix3x2aBookSolution() {
+        ZeroMatrix.setZeros(matrix3x2a);
+        assertArrayEquals(matrix3x2aZero, matrix3x2a);
+    }
+
+    @Test
+    public void zeroMatrix3x2bBookSolution() {
+        ZeroMatrix.zeroMatrixInPlace(matrix3x2b);
+        assertArrayEquals(matrix3x2bZero, matrix3x2b);
+    }
+
+    @Test
+    public void zeroMatrix4DBookSolution() {
+        ZeroMatrix.setZeros(matrix4D);
+        assertArrayEquals(matrix4DZero, matrix4D);
+    }
 }
