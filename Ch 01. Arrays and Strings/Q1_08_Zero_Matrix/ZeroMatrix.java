@@ -1,6 +1,13 @@
 /* 1.8 Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0,
  * its entire row and column are set to 0.
  */
+
+/* My mistakes:
+ * 1) I thought that space complexity O(1) means that there are no variables used, that's wrong.
+ *    It means that the space is not dependent on the input size.
+ * 2) Matrix MxN doesn't mean that there are different lengths for each row/column;
+ * 3) Sometimes it's ok to trade-off space complexity from O(n) to O(1) for the sake of repeating some operations.
+ */
 package Q1_08_Zero_Matrix;
 
 import java.util.HashMap;

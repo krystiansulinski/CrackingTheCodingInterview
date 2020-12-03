@@ -7,12 +7,12 @@ import static org.junit.Assert.assertArrayEquals;
 public class ZeroMatrixTest {
     final int[][] matrix2x1 = {
             {0, 2},
-            {3}
+            {3, 1}
     };
 
     final int[][] matrix2x1Zero = {
             {0, 0},
-            {0}
+            {0, 1}
     };
 
     final int[][] matrix3D = {
@@ -53,16 +53,16 @@ public class ZeroMatrixTest {
 
     final int[][] matrix4D = {
             {0, 2, 3, 0},
-            {5, 6},
+            {5, 6, 2, 1},
             {9, 10, 11, 12},
-            {13, 14, 0}
+            {13, 14, 0, 3}
     };
 
     final int[][] matrix4DZero = {
             {0, 0, 0, 0},
-            {0, 6},
+            {0, 6, 0, 0},
             {0, 10, 0, 0},
-            {0, 0, 0}
+            {0, 0, 0, 0}
     };
 
     @Test
