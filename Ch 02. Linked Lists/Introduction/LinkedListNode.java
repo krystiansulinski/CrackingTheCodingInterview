@@ -68,6 +68,6 @@ public class LinkedListNode {
             sb.append(node.value + " -> ");
             node = node.next;
         }
-        return sb.toString().substring(0, sb.length() - 4);
+        return sb.substring(0, sb.length() - 4);
     }
 }
