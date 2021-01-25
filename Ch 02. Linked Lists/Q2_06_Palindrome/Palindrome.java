@@ -6,8 +6,19 @@ package Q2_06_Palindrome;
 
 import Introduction.LinkedListNode;
 
+
 public class Palindrome {
+    // Time: O(n)
+    // Space: O(n)
+    // n - elements in the list
     static boolean isPalindrome(LinkedListNode list) {
-        return true;
+        StringBuilder string = new StringBuilder();
+
+        while (list != null) {
+            string.append(list.value);
+            list = list.next;
+        }
+
+        return string.toString().equals(string.reverse().toString());
     }
 }
