@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PalindromeTest {
     @Test
     void isPalindromeTest() {
-        int[][] palindromes = {{1, 2, 3, 2, 1}, {1, 2, 2, 1}};
+        int[][] palindromes = {{1, 2, 3, 2, 1}, {1, 2, 2, 1}, {5}};
 
         for (int[] palindrome : palindromes) {
             assertTrue(Palindrome.isPalindrome(new LinkedListNode(palindrome)));
