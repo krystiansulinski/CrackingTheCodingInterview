@@ -3,6 +3,7 @@ package Q3_04_Queue_via_Stacks;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class MyQueueTest {
     @Test
@@ -12,10 +13,10 @@ public class MyQueueTest {
         mq.add(4);
         mq.add(3);
 
-        assertEquals(java.util.Optional.of(2), mq.remove());
-        assertEquals(java.util.Optional.of(4), mq.peek());
-        assertEquals(java.util.Optional.of(4), mq.remove());
-        assertEquals(java.util.Optional.of(3), mq.remove());
-        assertEquals(true, mq.isEmpty());
+        assertEquals(Integer.valueOf(2), mq.remove());
+        assertEquals(Integer.valueOf(4), mq.peek());
+        assertEquals(Integer.valueOf(4), mq.remove());
+        assertEquals(Integer.valueOf(3), mq.remove());
+        assertTrue(mq.isEmpty());
     }
 }

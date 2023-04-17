@@ -9,7 +9,7 @@ public class MyIntegerArrayListTest {
     public void testConstructor1() {
         MyIntegerArrayList list1 = new MyIntegerArrayList();
 
-        assertEquals(true, list1.isEmpty());
+        assertTrue(list1.isEmpty());
         assertEquals(0, list1.size());
     }
 
@@ -17,7 +17,7 @@ public class MyIntegerArrayListTest {
     public void testConstructor2() {
         MyIntegerArrayList list1 = new MyIntegerArrayList(3);
 
-        assertEquals(false, list1.isEmpty());
+        assertFalse(list1.isEmpty());
         assertEquals(3, list1.size());
     }
 
@@ -26,7 +26,7 @@ public class MyIntegerArrayListTest {
         int[] arr1 = {1, 2, 3, 4};
         MyIntegerArrayList list = new MyIntegerArrayList(arr1);
 
-        assertEquals(false, list.isEmpty());
+        assertFalse(list.isEmpty());
         assertEquals(arr1.length, list.size());
     }
 
@@ -45,7 +45,7 @@ public class MyIntegerArrayListTest {
         list.add(10);
         list.add(11);
 
-        assertEquals(false, list.isEmpty());
+        assertFalse(list.isEmpty());
         assertEquals(11, list.size());
     }
 

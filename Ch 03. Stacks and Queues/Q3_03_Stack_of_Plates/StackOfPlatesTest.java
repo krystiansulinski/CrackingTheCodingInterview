@@ -15,15 +15,15 @@ public class StackOfPlatesTest {
         stack.push(5);
 		System.out.println(stack);
 
-		assertEquals(new Integer(3), stack.popAt(2));
+		assertEquals(Integer.valueOf(3), stack.popAt(2));
 		System.out.println(stack);
 		
-		assertEquals(new Integer(5), stack.popAt(2));
+		assertEquals(Integer.valueOf(5), stack.popAt(2));
 		stack.push(8);
 		
-		assertEquals(new Integer(8), stack.popAt(2));
-		assertEquals(new Integer(2), stack.pop());
-		assertEquals(new Integer(1), stack.pop());
-		assertEquals(new Integer(1), stack.pop());
+		assertEquals(Integer.valueOf(8), stack.popAt(2));
+		assertEquals(Integer.valueOf(2), stack.pop());
+		assertEquals(Integer.valueOf(1), stack.pop());
+		assertEquals(Integer.valueOf(1), stack.pop());
 	}
 }

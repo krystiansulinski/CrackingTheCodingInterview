@@ -7,7 +7,7 @@
 package Q8_03_Magic_Index;
 
 public class MagicIndex {
-	// assume the array is sorted in an ascending order
+	// assume the array is sorted in ascending order
 	// Time: O(logn)
 	public static int magicIndex(int[] arr) {
 		return magicIndex(arr, 0, arr.length - 1);
@@ -28,7 +28,7 @@ public class MagicIndex {
 		}
 	}
 
-	// assume the array is sorted in a descending order
+	// assume the array is sorted in descending order
 	public static int magicIndexNonDistinct(int[] arr) {
 		return magicIndexNonDistinct(arr, 0, arr.length - 1);
 	}

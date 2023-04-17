@@ -21,14 +21,14 @@ public class SortStackTest {
 		stack.sort();
 		System.out.println(stack);
 		
-		assertEquals(new Integer(1), stack.popMin());
-		assertEquals(new Integer(1), stack.popMin());
+		assertEquals(Integer.valueOf(1), stack.popMin());
+		assertEquals(Integer.valueOf(1), stack.popMin());
 		System.out.println(stack);
 		
-		assertEquals(new Integer(2), stack.popMin());
-		assertEquals(new Integer(3), stack.pop());
-		assertEquals(new Integer(5), stack.popMin());
-		assertEquals(new Integer(8), stack.pop());
+		assertEquals(Integer.valueOf(2), stack.popMin());
+		assertEquals(Integer.valueOf(3), stack.pop());
+		assertEquals(Integer.valueOf(5), stack.popMin());
+		assertEquals(Integer.valueOf(8), stack.pop());
 		assertEquals(0, stack.size());
 	}
 }
