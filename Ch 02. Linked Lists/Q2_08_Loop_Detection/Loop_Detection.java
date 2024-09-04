@@ -15,24 +15,22 @@
 
 package Q2_08_Loop_Detection;
 
-import Introduction.LinkedListNodeGeneric;
-
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 public class Loop_Detection {
     // Time: O(n)
     // Space: O(n)
-    // n - node.length
-    static Character getStartLoopNode(LinkedListNodeGeneric node) {
-        Set<Character> set = new HashSet<>();
+    // n - number of nodes
+    static Character getStartLoopNode(LinkedList<Character> list) {
+        Set<Character> seen = new HashSet<>();
 
-        while (node != null) {
-            if (set.contains(node.value)) {
-                return (Character) node.value;
+        for (Character node: list) {
+            if (seen.contains(node)) {
+                return node;
             }
-            set.add((Character) node.value);
-            node = node.next;
+            seen.add(node);
         }
 
         return null;
