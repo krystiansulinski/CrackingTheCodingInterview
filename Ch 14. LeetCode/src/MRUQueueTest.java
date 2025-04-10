@@ -3,63 +3,31 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 public class MRUQueueTest {
     @Test
-    public void instantiateMRUQueue() {
-        MRUQueue queue = new MRUQueue(1);
-        Node head = queue.getHead();
-
-        assertEquals(1, head.val);
-        assertNull(null);
-        assertNull(null);
+    public void testMRUQueue() {
+        assertEquals(List.of(List.of(1, 2, 3), List.of(4, 5, 6), List.of(7, 8)), new MRUQueue(8).getList());
+        assertEquals(List.of(List.of(1)), new MRUQueue(1).getList());
     }
 
     @Test
-    public void instantiateComplexMRUQueue() {
+    public void testFetch() {
         MRUQueue queue = new MRUQueue(8);
-        Node head = queue.getHead();
 
-        assertEquals(head.next.prev.val, 1);
-        assertEquals(head.next.val, 2);
-    }
+        assertEquals(3, queue.fetch(3));
+        assertEquals(List.of(List.of(1, 2), List.of(4, 5, 6), List.of(7, 8, 3)), queue.getList());
 
-    @Test
-    public void getRefsTest() {
-        MRUQueue q = new MRUQueue(8);
-        List<Integer> refs = q.toList();
+        assertEquals(6, queue.fetch(5));
+        assertEquals(List.of(List.of(1, 2), List.of(4, 5), List.of(7, 8, 3, 6)), queue.getList());
 
-        assertEquals(1, refs.get(0).intValue());
-        assertEquals(2, refs.get(1).intValue());
-        assertEquals(7, refs.get(6).intValue());
-        assertEquals(8, refs.get(7).intValue());
-    }
+        assertEquals(2, queue.fetch(2));
+        assertEquals(List.of(List.of(1), List.of(4, 5), List.of(7, 8, 3, 6, 2)), queue.getList());
 
-    @Test
-    public void testToList() {
-        MRUQueue q = new MRUQueue(8);
-        assertEquals(List.of(1, 2, 3, 4, 5, 6, 7, 8), q.toList());
-    }
+        assertEquals(2, queue.fetch(8));
+        assertEquals(List.of(List.of(1), List.of(4, 5), List.of(7, 8, 3, 6, 2)), queue.getList());
 
-    @Test
-    public void fetchTest() {
-        MRUQueue mRUQueue = new MRUQueue(8);
-        assertEquals(List.of(1, 2, 3, 4, 5, 6, 7, 8), mRUQueue.toList());
-
-        assertEquals(3, mRUQueue.fetch(3));
-        assertEquals(List.of(1, 2, 4, 5, 6, 7, 8, 3), mRUQueue.toList());
-
-        assertEquals(6, mRUQueue.fetch(5));
-        assertEquals(List.of(1, 2, 4, 5, 7, 8, 3, 6), mRUQueue.toList());
-
-        assertEquals(2, mRUQueue.fetch(2));
-        assertEquals(List.of(1, 4, 5, 7, 8, 3, 6, 2), mRUQueue.toList());
-
-        assertEquals(2, mRUQueue.fetch(8));
-        assertEquals(List.of(1, 4, 5, 7, 8, 3, 6, 2), mRUQueue.toList());
-
-        assertEquals(1, mRUQueue.fetch(1));
-        assertEquals(List.of(4, 5, 7, 8, 3, 6, 2, 1), mRUQueue.toList());
+        assertEquals(4, queue.fetch(2));
+        assertEquals(List.of(List.of(1), List.of(5), List.of(7, 8, 3, 6, 2, 4)), queue.getList());
     }
 }

@@ -26,70 +26,68 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MRUQueue {
-    private Node head;
-    private Node tail;
-    private List<Node> refs;
+    private List<List<Integer>> list;
+    private int size;
+    private int chunkSize;
 
     public MRUQueue(int n) {
-        refs = new ArrayList<>(n);
+        // Create ceil(sqrt(n)) chunks of ceil(sqrt(n)) size to speed up fetch from O(n) to O(sqrt(n))
+        list = new ArrayList<>();
+        size = n;
+        chunkSize = (int) Math.ceil(Math.sqrt(n));
 
-        head = new Node(1);
-        refs.add(head);
-        Node current = head;
-        for (int i = 2; i <= n; i++) {
-            Node newNode = new Node(i);
-            current.next = newNode;
-            newNode.prev = current;
-            current = newNode;
-            refs.add(current);
+        for (int k = 0; k < n; k++) {
+            if (k % chunkSize == 0) {
+                list.add(new ArrayList<>());
+            }
+
+            list.get(k / chunkSize).add(k + 1);
         }
-
-        tail = current;
     }
 
-    public Node getHead() {
-        return head;
-    }
-
-    public List<Integer> toList() {
-        List<Integer> result = new ArrayList<>();
-        Node current = head;
-
-        while (current != null) {
-            result.add(current.val);
-            current = current.next;
-        }
-
-        return result;
+    public List<List<Integer>> getList() {
+        return list;
     }
 
     public int fetch(int k) {
-        Node node = head;
+        k = k - 1;
 
-        for (int i = 1; i < k; i++) {
-            node = node.next;
+        int target = -1;
+        int acc = 0;
+        int i = 0;
+        while (i < list.size()) {
+            int currentSize = list.get(i).size();
+            acc += currentSize;
+            if (k < acc) {
+                target = list.get(i).remove((k - (acc - currentSize)) % currentSize);
+                break;
+            }
+            i++;
         }
 
-        if (node == tail) {
-            return node.val;
+        var last = list.get(list.size() - 1);
+        last.add(target);
+
+        if (last.size() >= chunkSize * 2) {
+            rebalance();
         }
 
-        if (node.prev != null) {
-            node.prev.next = node.next;
-        } else {
-            head = node.next;
-        }
+        return target;
+    }
 
-        if (node.next != null) {
-            node.next.prev = node.prev;
-        }
-
-        tail.next = node;
-        node.prev = tail;
-        node.next = null;
-        tail = node;
-
-        return node.val;
+    // [[1], [5], [7, 8, 3, 6, 2, 4]]
+    // [[1, 5, 7], [8, 3, 6], [2, 4]]
+    // TODO: To rebalance, create an empty list, and populate in order
+    public void rebalance() {
+//        var rebalanced = new ArrayList<List<Integer>>();
+//
+//        for (int i = 0; i < list.get(0); i++) {
+//            rebalanced.add(new ArrayList<>());
+//            var current = rebalanced.get(i);
+//            for (int j = 0; j < chunkSize; j++) {
+//                current.add(list.)
+//            }
+//        }
     }
 }
 
