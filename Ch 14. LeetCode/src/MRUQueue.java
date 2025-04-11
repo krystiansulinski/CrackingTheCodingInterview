@@ -26,73 +26,69 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MRUQueue {
-    private List<List<Integer>> list;
-    private int size;
-    private int chunkSize;
+    private List<List<Integer>> buckets;
+    private final int MAX_BUCKET_SIZE;
 
     public MRUQueue(int n) {
-        // Create ceil(sqrt(n)) chunks of ceil(sqrt(n)) size to speed up fetch from O(n) to O(sqrt(n))
-        list = new ArrayList<>();
-        size = n;
-        chunkSize = (int) Math.ceil(Math.sqrt(n));
+        // Divide n elements into chunks of size ~sqrt(n) to support fast fetch().
+        buckets = new ArrayList<>();
+        MAX_BUCKET_SIZE = (int) Math.ceil(Math.sqrt(n));
 
         for (int k = 0; k < n; k++) {
-            if (k % chunkSize == 0) {
-                list.add(new ArrayList<>());
+            if (k % MAX_BUCKET_SIZE == 0) {
+                buckets.add(new ArrayList<>());
             }
 
-            list.get(k / chunkSize).add(k + 1);
+            buckets.get(k / MAX_BUCKET_SIZE).add(k + 1);
         }
     }
 
-    public List<List<Integer>> getList() {
-        return list;
+    public List<List<Integer>> getBuckets() {
+        return buckets;
     }
 
     public int fetch(int k) {
-        k = k - 1;
+        // k is 1-indexed
+        k--;
 
-        int target = -1;
-        int acc = 0;
-        int i = 0;
-        while (i < list.size()) {
-            int currentSize = list.get(i).size();
-            acc += currentSize;
-            if (k < acc) {
-                target = list.get(i).remove((k - (acc - currentSize)) % currentSize);
+        int fetchedValue = -1;
+        int elementsBefore = 0;
+        int bucketIndex = 0;
+        while (bucketIndex < buckets.size()) {
+            int bucketSize = buckets.get(bucketIndex).size();
+            elementsBefore += bucketSize;
+            if (k < elementsBefore) {
+                int localIndex = (k - (elementsBefore - bucketSize)) % bucketSize;
+                fetchedValue = buckets.get(bucketIndex).remove(localIndex);
                 break;
             }
-            i++;
+            bucketIndex++;
         }
 
-        var last = list.get(list.size() - 1);
-        last.add(target);
+        var last = buckets.get(buckets.size() - 1);
+        last.add(fetchedValue);
 
-        if (last.size() >= chunkSize * 2) {
-            rebalance();
+        if (last.size() >= MAX_BUCKET_SIZE * 2) {
+            rebalanceBuckets();
         }
 
-        return target;
+        return fetchedValue;
     }
 
-    // [[1], [5], [7, 8, 3, 6, 2, 4]]
-    // [[1, 5, 7], [8, 3, 6], [2, 4]]
-    // TODO: To rebalance, create an empty list, and populate in order
-    public void rebalance() {
-//        var rebalanced = new ArrayList<List<Integer>>();
-//
-//        for (int i = 0; i < list.get(0); i++) {
-//            rebalanced.add(new ArrayList<>());
-//            var current = rebalanced.get(i);
-//            for (int j = 0; j < chunkSize; j++) {
-//                current.add(list.)
-//            }
-//        }
+    // [[1], [4, 5], [7, 8, 3, 6, 2]] => [[1, 4, 5], [7, 8, 3], [6, 2]]
+    public void rebalanceBuckets() {
+        List<Integer> lastBucket = buckets.get(buckets.size() - 1);
+
+        int i = 0;
+        while (lastBucket.size() >= MAX_BUCKET_SIZE) {
+            List<Integer> current = buckets.get(i);
+
+            if (current.size() < MAX_BUCKET_SIZE && i + 1 < buckets.size()) {
+                int shift = buckets.get(i + 1).remove(0);
+                current.add(shift);
+            } else {
+                i++;
+            }
+        }
     }
 }
-
-// 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
-// 1 -> 2 ------> 4 -> 5 -> 6 -> 7 -> 8 -> 3
-// start    = [1, 2, 3, 4, 5, 6, 7, 8]
-// fetch(3) = [1, 2, -1, 4, 5, 6, 7, 8, 3]
-// fetch(6) = [1, 2, -1, 4, 5, -1, 7, 8, 3, 6]
