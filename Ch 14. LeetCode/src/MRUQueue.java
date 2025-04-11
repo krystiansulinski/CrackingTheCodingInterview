@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MRUQueue {
-    private List<List<Integer>> buckets;
+    private final List<List<Integer>> buckets;
     private final int MAX_BUCKET_SIZE;
 
     public MRUQueue(int n) {
